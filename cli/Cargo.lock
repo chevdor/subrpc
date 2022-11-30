@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "subrpc"
+name = "cargo-template"
 version = "0.1.0"
