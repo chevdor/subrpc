@@ -1,7 +1,7 @@
 [package]
 authors = ["Wilfried Kopp <wilfried@parity.io>"]
 name = "subrpc-lib"
-version = "0.0.0"
+version = "0.0.1"
 edition = "2021"
 description = "subrpc-lib is a lib"
 homepage = "https://github.com/Wilfried Kopp/subrpc-lib"
