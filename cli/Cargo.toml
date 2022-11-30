@@ -1,14 +1,14 @@
 [package]
-authors = ["Wilfried Kopp <wilfried@parity.io>"]
+authors = ["chevdor <chevdor@gmail.com>"]
 name = "subrpc"
 version = "0.0.1"
 edition = "2021"
 description = "subrpc is a cli"
-homepage = "https://github.com/Wilfried Kopp/subrpc"
-keywords = ["Wilfried Kopp"]
+homepage = "https://github.com/chevdor/subrpc"
+keywords = ["chevdor"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/Wilfried Kopp/subrpc"
+repository = "https://github.com/chevdor/subrpc"
 
 [dependencies]
 assert_cmd = "2.0"
