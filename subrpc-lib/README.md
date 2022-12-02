@@ -1,3 +1,0 @@
-# subrpc-lib
-
-WIP

@@ -3,6 +3,5 @@ resolver = "2"
 
 members = [
     "cli",
-    "subrpc-lib",
     "subrpc-core",
 ]
