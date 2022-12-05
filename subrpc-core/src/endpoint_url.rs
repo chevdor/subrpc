@@ -2,7 +2,7 @@ use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(PartialEq, Debug, Deserialize, Serialize)]
+#[derive(PartialEq, Hash, Eq, Debug, Deserialize, Serialize)]
 pub enum EndpointUrl {
     Http(String),
     Https(String),

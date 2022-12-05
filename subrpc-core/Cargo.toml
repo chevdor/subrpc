@@ -22,3 +22,6 @@ jsonrpsee = { version = "0.16", git = "https://github.com/paritytech/jsonrpsee",
     "client",
 ] }
 anyhow = "1.0.66"
+dirs = "4.0.0"
+chrono = { version = "0.4.23", features = ["serde"] }
+reqwest = { version = "0.11.13", features = ["blocking", "json"] }

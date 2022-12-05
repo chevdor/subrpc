@@ -1,4 +1,5 @@
 use crate::{endpoint::Endpoint, EndpointUrl};
+use crate::{ChainName, RegistryUrl};
 use anyhow::Result;
 use jsonrpsee::{
     core::client::ClientT, http_client::HttpClientBuilder, rpc_params, ws_client::WsClientBuilder,
@@ -15,10 +16,7 @@ use std::{
 };
 use tokio::runtime::Runtime;
 
-type RegistryUrl = String; // FIXME
-type ChainName = String;
-
-#[derive(PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Eq, Debug, Deserialize, Serialize)]
 pub struct Registry {
     /// Name of the registry
     pub name: String,
@@ -28,24 +26,55 @@ pub struct Registry {
 
     /// Items of the registry
     pub items: HashMap<ChainName, Vec<Endpoint>>,
+
+    /// Data won't be pulled from a disabled registry
+    pub enabled: bool,
+}
+
+impl PartialEq for Registry {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
 }
 
 impl Registry {
-    pub fn new(name: String, url: String) -> Self {
+    pub fn new(name: &str, url: &str) -> Self {
         Self {
-            name,
-            url: Some(url),
+            name: name.to_string(),
+            url: Some(url.to_string()),
             items: HashMap::new(),
+            enabled: true,
         }
     }
 
     /// Fetch the information from located at the registry's url and update the registry items
-    pub fn update(self) {
-        if let Some(_url) = self.url {
-            log::warn!("NOT IMPLEMENTED");
+    pub fn update(&mut self) -> Result<()> {
+        if !self.enabled {
+            warn!("Registry is disabled, skipping...");
+            return Ok(());
+        }
+
+        if self.url.is_none() {
+            warn!("Registry has no URL, skipping...");
+            return Ok(());
+        }
+
+        // reg.items.iter().for_each(|(name, endpoints)| {
+        //     debug!("   - {}", name);
+        //     endpoints.iter().for_each(|e| {
+        //         debug!("     - {} {}", e.name, e.url);
+        //     });
+        // });
+
+        if let Some(registry_url) = &self.url {
+            let reg = reqwest::blocking::get(registry_url)?.json::<Registry>()?;
+
+            *self = reg;
         } else {
             log::warn!("No URL, skipping...");
         }
+
+        Ok(())
     }
 
     /// Ping all endpoints and refresh the stats
@@ -139,6 +168,7 @@ impl Default for Registry {
             name: "SubRPC Default".to_string(),
             url: None,
             items,
+            enabled: true,
         }
     }
 }

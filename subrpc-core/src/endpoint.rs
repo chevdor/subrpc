@@ -1,7 +1,7 @@
 use crate::{EndpointStats, EndpointUrl};
 use serde::{Deserialize, Serialize};
 
-#[derive(PartialEq, Debug, Deserialize, Serialize)]
+#[derive(Debug, Hash, Deserialize, Serialize)]
 pub struct Endpoint {
     /// Name of the endpoint
     pub name: String,
@@ -14,6 +14,14 @@ pub struct Endpoint {
 
     pub stats: EndpointStats,
 }
+
+impl PartialEq for Endpoint {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name && self.labels == other.labels && self.url == other.url
+    }
+}
+
+impl Eq for Endpoint {}
 
 impl Endpoint {
     pub fn new(name: &str, url: &str) -> Self {

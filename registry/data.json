@@ -1,0 +1,60 @@
+{
+    "name": "SubRPC Default",
+    "url": null,
+    "items": {
+      "Polkadot": [
+        {
+          "name": "Parity",
+          "labels": [],
+          "url": {
+            "Wss": "wss://rpc.polkadot.io:443"
+          },
+          "stats": {
+            "failures": 0,
+            "success": 0,
+            "latency": 0.0
+          }
+        },
+        {
+          "name": "OnFinality",
+          "labels": [],
+          "url": {
+            "Wss": "wss://polkadot.api.onfinality.io:443/public-ws"
+          },
+          "stats": {
+            "failures": 0,
+            "success": 0,
+            "latency": 0.0
+          }
+        }
+      ],
+      "Kusama": [
+        {
+          "name": "Parity",
+          "labels": [],
+          "url": {
+            "Wss": "wss://kusama-rpc.polkadot.io:443"
+          },
+          "stats": {
+            "failures": 0,
+            "success": 0,
+            "latency": 0.0
+          }
+        },
+        {
+          "name": "Parity Bad",
+          "labels": [],
+          "url": {
+            "Wss": "wss://bad-rpc.polkadot.io:443"
+          },
+          "stats": {
+            "failures": 0,
+            "success": 0,
+            "latency": 0.0
+          }
+        }
+      ]
+    },
+    "enabled": true
+  }
+  

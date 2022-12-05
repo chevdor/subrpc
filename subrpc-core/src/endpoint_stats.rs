@@ -8,6 +8,13 @@ pub struct EndpointStats {
     pub latency: f32,
 }
 
+impl std::hash::Hash for EndpointStats {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.failures.hash(state);
+        self.success.hash(state);
+    }
+}
+
 impl EndpointStats {
     pub fn add(&mut self, state: bool, latency: Option<f32>) {
         if state {
