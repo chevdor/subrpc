@@ -1743,6 +1743,7 @@ dependencies = [
  "color-eyre",
  "env_logger",
  "log",
+ "subrpc-core",
 ]
 
 [[package]]

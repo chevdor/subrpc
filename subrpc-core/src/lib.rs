@@ -14,3 +14,11 @@ pub use local_data::*;
 
 pub type RegistryUrl = String; // FIXME
 pub type ChainName = String;
+
+fn empty_string_array() -> Vec<String> {
+    vec![]
+}
+
+fn default_true() -> bool {
+    true
+}
