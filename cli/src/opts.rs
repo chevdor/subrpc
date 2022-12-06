@@ -35,7 +35,7 @@ pub enum SubCommand {
 #[derive(Parser)]
 pub struct InitOpts {}
 
-/// Init subrpc, you usually won't need this.
+/// Repo
 #[derive(Parser)]
 pub struct RepoOpts {
     #[clap(subcommand)]
@@ -87,7 +87,7 @@ pub enum SystemSubCommand {
     Info(SystemInfoOpts),
 }
 
-/// Config
+/// System
 #[derive(Parser)]
 pub struct SystemOpts {
     #[clap(subcommand)]
@@ -106,14 +106,14 @@ pub struct RepoAddOpts {}
 #[derive(Parser)]
 pub struct RepoRemoveOpts {}
 
-/// Remove repo
+/// Config list
 #[derive(Parser)]
 pub struct ConfigListOpts {}
 
-/// Remove repo
+/// Config edit
 #[derive(Parser)]
 pub struct ConfigEditOpts {}
 
-/// Remove repo
+/// System info
 #[derive(Parser)]
 pub struct SystemInfoOpts {}

@@ -4,9 +4,9 @@ Usage: subrpc <COMMAND>
 
 Commands:
   init       Init subrpc, you usually won't need this
-  repo       Init subrpc, you usually won't need this
+  repo       Repo
   update     Update
-  system     Config
+  system     System
   endpoints  Endpoints
   config     Config
   help       Print this message or the help of the given subcommand(s)

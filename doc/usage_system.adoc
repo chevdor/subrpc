@@ -1,9 +1,9 @@
-Config
+System
 
 Usage: subrpc system <COMMAND>
 
 Commands:
-  info  Remove repo
+  info  System info
   help  Print this message or the help of the given subcommand(s)
 
 Options:
