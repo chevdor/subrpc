@@ -1,5 +1,7 @@
 mod opts;
 
+use std::process;
+
 use clap::{crate_authors, crate_name, crate_version, Parser};
 use env_logger::Env;
 use log::*;
@@ -39,18 +41,18 @@ fn main() -> color_eyre::Result<()> {
 				}
 
 				RegistrySubCommand::Add(reg_opts) => {
-                    debug!("registry/add");
+					debug!("registry/add");
                     debug!("reg_opts: {:?}", reg_opts);
                     let reg_maybe = Registry::load_from_url(&reg_opts.url);
 
                     match reg_maybe {
-                        Ok(mut reg) => {
-                            reg.url = Some(reg_opts.url);
+						Ok(mut reg) => {
+							reg.url = Some(reg_opts.url);
                             let reg_name = reg.name.clone();
                             let res = db.add_registry(reg).save();
                             match res {
-                                Ok(local_data) => {
-                                    println!("OK, {} has been added to your local data.", reg_name);
+								Ok(local_data) => {
+									println!("OK, {} has been added to your local data.", reg_name);
                                     local_data.print_registries();
                                 },
                                 Err(e) => println!("Something went wrong while adding {} to your local data: {:?}", reg_name, e),
@@ -62,20 +64,34 @@ fn main() -> color_eyre::Result<()> {
 				}
 
                 // RegistrySubCommand::Enable(reg_opts) => {
-                //     debug!("registry/enable");
-                //     debug!("reg_opts: {:?}", reg_opts);
-				// }
-				// RegistrySubCommand::Remove(_) => {
-				//     debug!("registry/remove");
+					//     debug!("registry/enable");
+					//     debug!("reg_opts: {:?}", reg_opts);
+					// }
+					// RegistrySubCommand::Remove(_) => {
+						//     debug!("registry/remove");
 
-				// },
-			}
+						// },
+					}
 		}
 
 		// Update the list data from the registries
 		SubCommand::Update(cmd_opts) => {
 			debug!("Running Update command");
 			debug!("cmd_opts: {:?}", cmd_opts);
+
+			let db = db.refresh();
+			println!("db = {:?}", db);
+			let res = db.save();
+			match res {
+				Ok(_db) => {
+					println!("OK");
+					process::exit(0);
+				}
+				Err(e) => {
+					eprintln!("{e}");
+					process::exit(1);
+				}
+			}
 		}
 
 		// SubCommand::System(cmd_opts) => {
@@ -85,6 +101,29 @@ fn main() -> color_eyre::Result<()> {
 		SubCommand::Endpoints(cmd_opts) => {
 			debug!("Running Endpoints command");
 			debug!("cmd_opts: {:?}", cmd_opts);
+			match cmd_opts.endpoints_subcmd {
+				EndpointsSubCommand::Get(ep_opts) => {
+					debug!("endpoints/get");
+					debug!("ep_opts: {:?}", ep_opts);
+					todo!()
+				}
+
+				EndpointsSubCommand::List(ep_opts) => {
+					debug!("endpoints/list");
+					debug!("ep_opts: {:?}", ep_opts);
+					if db.items.is_empty() {
+						println!("No item found");
+						std::process::exit(1);
+					}
+
+					db.items.iter().for_each(|(name, list)| {
+						println!("- {name}");
+						list.iter().for_each(|ep| {
+							println!("  - {ep:?}");
+						})
+					})
+				}
+			}
 		}
 
 		_ => {

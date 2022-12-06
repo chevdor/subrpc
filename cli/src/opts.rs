@@ -5,30 +5,30 @@ use clap::{crate_authors, crate_version, ColorChoice, Parser, Subcommand};
 #[derive(Debug, Parser)]
 #[clap(version = crate_version!(), author = crate_authors!(), color=ColorChoice::Always)]
 pub struct Opts {
-    #[clap(subcommand)]
-    pub subcmd: SubCommand,
+	#[clap(subcommand)]
+	pub subcmd: SubCommand,
 }
 
 /// You can find all available commands below.
 #[derive(Debug, Subcommand)]
 pub enum SubCommand {
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Init(InitOpts),
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Init(InitOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Registry(RegistryOpts),
+	#[clap(alias="reg", version = crate_version!(), author = crate_authors!())]
+	Registry(RegistryOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Update(UpdateOpts),
+	#[clap(alias="up", version = crate_version!(), author = crate_authors!())]
+	Update(UpdateOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    System(SystemOpts),
+	#[clap(alias="sys", version = crate_version!(), author = crate_authors!())]
+	System(SystemOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Endpoints(EndpointsOpts),
+	#[clap(alias = "ep", version = crate_version!(), author = crate_authors!())]
+	Endpoints(EndpointsOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Config(ConfigOpts),
+	#[clap(alias="conf", version = crate_version!(), author = crate_authors!())]
+	Config(ConfigOpts),
 }
 
 /// Force `init` the `subrpc` local data. This is done automatically as needed and
@@ -39,34 +39,43 @@ pub struct InitOpts {}
 /// Manage your registries
 #[derive(Debug, Parser)]
 pub struct RegistryOpts {
-    #[clap(subcommand)]
-    pub registry_subcmd: RegistrySubCommand,
+	#[clap(subcommand)]
+	pub registry_subcmd: RegistrySubCommand,
 }
 
 /// You can find all available commands below.
 #[derive(Debug, Subcommand)]
 pub enum RegistrySubCommand {
-    #[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
-    List(RegistryListOpts),
+	#[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
+	List(RegistryListOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Add(RegistryAddOpts),
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Add(RegistryAddOpts),
+	// #[clap(version = crate_version!(), author = crate_authors!())]
+	// Enable(RegistryEnableOpts),
 
-    // #[clap(version = crate_version!(), author = crate_authors!())]
-    // Enable(RegistryEnableOpts),
-
-    // #[clap(alias="rm", version = crate_version!(), author = crate_authors!())]
-    // Remove(RegistryRemoveOpts),
+	// #[clap(alias="rm", version = crate_version!(), author = crate_authors!())]
+	// Remove(RegistryRemoveOpts),
 }
 
 /// You can find all available commands below.
 #[derive(Debug, Subcommand)]
 pub enum ConfigSubCommand {
-    #[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
-    List(ConfigListOpts),
+	#[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
+	List(ConfigListOpts),
 
-    #[clap(version = crate_version!(), author = crate_authors!())]
-    Edit(ConfigEditOpts),
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Edit(ConfigEditOpts),
+}
+
+/// You can find all available commands below.
+#[derive(Debug, Subcommand)]
+pub enum EndpointsSubCommand {
+	#[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
+	List(EndpointsListOpts),
+
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Get(EndpointsGetOpts),
 }
 
 /// Fetch the latest data from the registries and update the list of endpoints
@@ -75,27 +84,30 @@ pub struct UpdateOpts {}
 
 /// Endpoints
 #[derive(Debug, Parser)]
-pub struct EndpointsOpts {}
+pub struct EndpointsOpts {
+	#[clap(subcommand)]
+	pub endpoints_subcmd: EndpointsSubCommand,
+}
 
 /// Config
 #[derive(Debug, Parser)]
 pub struct ConfigOpts {
-    #[clap(subcommand)]
-    pub Registry_subcmd: ConfigSubCommand,
+	#[clap(subcommand)]
+	pub registry_subcmd: ConfigSubCommand,
 }
 
 /// You can find all available commands below.
 #[derive(Debug, Subcommand)]
 pub enum SystemSubCommand {
-    #[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
-    Info(SystemInfoOpts),
+	#[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
+	Info(SystemInfoOpts),
 }
 
 /// System
 #[derive(Debug, Parser)]
 pub struct SystemOpts {
-    #[clap(subcommand)]
-    pub system_subcmd: SystemSubCommand,
+	#[clap(subcommand)]
+	pub system_subcmd: SystemSubCommand,
 }
 
 /// List currently known registries
@@ -105,8 +117,8 @@ pub struct RegistryListOpts {}
 /// Add a new registry. It will be enabled by default.
 #[derive(Debug, Parser)]
 pub struct RegistryAddOpts {
-    #[clap(index = 1)]
-    pub url: String,
+	#[clap(index = 1)]
+	pub url: String,
 }
 
 /// Remove Registry
@@ -116,8 +128,8 @@ pub struct RegistryRemoveOpts {}
 /// Enable or disable a registry
 #[derive(Debug, Parser)]
 pub struct RegistryEnableOpts {
-    #[clap(index = 1)]
-    pub state: bool,
+	#[clap(index = 1)]
+	pub state: bool,
 }
 
 /// Config list
@@ -131,3 +143,11 @@ pub struct ConfigEditOpts {}
 /// System info
 #[derive(Debug, Parser)]
 pub struct SystemInfoOpts {}
+
+/// Show the list of all endpoints
+#[derive(Debug, Parser)]
+pub struct EndpointsListOpts {}
+
+/// Get one or some endpoints
+#[derive(Debug, Parser)]
+pub struct EndpointsGetOpts {}

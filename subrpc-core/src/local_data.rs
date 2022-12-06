@@ -43,7 +43,7 @@ impl LocalData {
 	/// Initialize a DB based on a given file.
 	/// After initializing a DB, you should ensure it contains
 	/// at least one registry and call the [refresh] function.
-	pub fn init(file: &PathBuf, force: bool) -> Result<Self> {
+	pub fn init(file: &Path, force: bool) -> Result<Self> {
 		debug!("Initializing local data in {} with force: {:?}", file.display(), force);
 
 		let data = Self { file: file.to_path_buf(), ..Default::default() };
@@ -95,7 +95,7 @@ impl LocalData {
 		Ok(self)
 	}
 
-	pub fn get_endpoints(&self, chain: &str) -> Option<Vec<&Endpoint>> {
+	pub fn get_endpoints(&self, _chain: &str) -> Option<Vec<&Endpoint>> {
 		// let r = self
 		//     .registries
 		//     .iter()
@@ -146,7 +146,7 @@ mod test_local_data {
             .expect("Forced init should work")
             .save()
             .expect("Saving data should work")
-            .load()
+            .load().expect("Load works")
             .add_registry(Registry::new("SubRPC", "http://some-registry/data.json"))
             .add_registry(Registry::new("SubRPC Gist", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/64479d971ce984e6d61010b94a2f81a4c5896d9d/data.json"))
             .refresh()

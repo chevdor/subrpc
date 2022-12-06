@@ -65,7 +65,7 @@ impl Registry {
 		}
 
 		if self.url.is_none() {
-			warn!("Registry has no URL, skipping...");
+			warn!("Registry '{}' has no URL, skipping...", self.name);
 			return Ok(());
 		}
 
@@ -79,7 +79,8 @@ impl Registry {
 		if let Some(registry_url) = &self.url {
 			let reg = reqwest::blocking::get(registry_url)?.json::<Registry>()?;
 
-			*self = reg;
+			self.items = reg.items;
+			debug!("Found {:?} items", self.items.len());
 		} else {
 			log::warn!("No URL, skipping...");
 		}
@@ -151,8 +152,7 @@ impl Registry {
 
 	pub fn load_from_url(url: &str) -> Result<Self> {
 		debug!("Adding registry from {url}");
-		let res = reqwest::blocking::get(url)?.json::<Registry>().map_err(anyhow::Error::msg);
-		res
+		reqwest::blocking::get(url)?.json::<Registry>().map_err(anyhow::Error::msg)
 	}
 }
 
@@ -196,7 +196,7 @@ impl Display for Registry {
 		));
 
 		self.items.iter().for_each(|(name, endpoints)| {
-			let _ = f.write_fmt(format_args!("  - {}\n", name));
+			let _ = f.write_fmt(format_args!("  - {name}\n"));
 			endpoints.iter().for_each(|e| {
 				let _ = f.write_fmt(format_args!(
 					"    - {}: {:?}\n",
@@ -247,6 +247,7 @@ mod test_super {
 		let reg1 = Registry::default();
 		reg1.items.iter().for_each(|(_chain, endpoints)| {
 			endpoints.iter().for_each(|e| {
+				println!("Checking {}: {:?}", e.name, e.url);
 				let (success, duration) = Registry::ping(e).unwrap();
 				println!("{} => {:?} {:?}", e.name, success, duration);
 				assert!(success);
