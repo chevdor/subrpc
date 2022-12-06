@@ -1,0 +1,7 @@
+Endpoints
+
+Usage: subrpc endpoints
+
+Options:
+  -h, --help     Print help information
+  -V, --version  Print version information

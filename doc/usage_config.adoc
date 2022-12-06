@@ -1,0 +1,12 @@
+Config
+
+Usage: subrpc config <COMMAND>
+
+Commands:
+  list  Remove repo
+  edit  Remove repo
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help information
+  -V, --version  Print version information

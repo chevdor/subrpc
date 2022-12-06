@@ -1,0 +1,7 @@
+Init subrpc, you usually won't need this
+
+Usage: subrpc init
+
+Options:
+  -h, --help     Print help information
+  -V, --version  Print version information
