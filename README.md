@@ -46,82 +46,80 @@ Eveytime you connect (or ask for a refresh), SubRPC checks whether an endpoint i
 
 ## Help
 
-`subrpc` allows managing a set of registry providing rpc nodes
+    `subrpc` allows managing a set of registry providing rpc nodes
 
-Usage: subrpc &lt;COMMAND&gt;
+    Usage: subrpc <COMMAND>
 
-Commands:
-registry Manage your registries
-system System
-endpoints Endpoints
-config Config
-help Print this message or the help of the given subcommand(s)
+    Commands:
+      registry   Manage your registries
+      system     System
+      endpoints  Endpoints
+      config     Config
+      help       Print this message or the help of the given subcommand(s)
 
-Options:
--h, --help Print help information
--V, --version Print version information
-
-## Init
+    Options:
+      -h, --help     Print help information
+      -V, --version  Print version information
 
 ## Config
 
-Config
+    Config
 
-Usage: subrpc config &lt;COMMAND&gt;
+    Usage: subrpc config <COMMAND>
 
-Commands:
-list Config list
-edit Config edit
-help Print this message or the help of the given subcommand(s)
+    Commands:
+      list  Config list
+      edit  Config edit
+      help  Print this message or the help of the given subcommand(s)
 
-Options:
--h, --help Print help information
--V, --version Print version information
+    Options:
+      -h, --help     Print help information
+      -V, --version  Print version information
 
 ## Registry
 
-Manage your registries
+    Manage your registries
 
-Usage: subrpc registry &lt;COMMAND&gt;
+    Usage: subrpc registry <COMMAND>
 
-Commands:
-list List currently known registries
-show Show the list of registries and some of the content
-add Add a new registry. It will be enabled by default
-update Fetch the latest data from the registries and update the list of endpoints
-help Print this message or the help of the given subcommand(s)
+    Commands:
+      list    List currently known registries
+      show    Show the list of registries and some of the content
+      add     Add a new registry. It will be enabled by default
+      update  Fetch the latest data from the registries and update the list of endpoints
+      help    Print this message or the help of the given subcommand(s)
 
-Options:
--h, --help Print help information
--V, --version Print version information
+    Options:
+      -h, --help     Print help information
+      -V, --version  Print version information
 
 ## Endpoints
 
-Endpoints
+    Endpoints
 
-Usage: subrpc endpoints &lt;COMMAND&gt;
+    Usage: subrpc endpoints <COMMAND>
 
-Commands:
-list Show the list of all endpoints
-get Get one or some endpoints
-ping Ping endpoints
-help Print this message or the help of the given subcommand(s)
+    Commands:
+      list  Show the list of all endpoints
+      get   Get one or some endpoints
+      ping  Ping endpoints
+      help  Print this message or the help of the given subcommand(s)
 
-Options:
--h, --help Print help information
--V, --version Print version information
+    Options:
+      -h, --help     Print help information
+      -V, --version  Print version information
 
 ## System
 
-System
+    System
 
-Usage: subrpc system &lt;COMMAND&gt;
+    Usage: subrpc system <COMMAND>
 
-Commands:
-info Show general system information such as the location of relevant files
-init Reset your local database
-help Print this message or the help of the given subcommand(s)
+    Commands:
+      info  Show general system information such as the location of relevant files
+      init  Reset your local database
+      help  Print this message or the help of the given subcommand(s)
 
-Options:
--h, --help Print help information
--V, --version Print version information
+    Options:
+      -h, --help     Print help information
+      -V, --version  Print version information
