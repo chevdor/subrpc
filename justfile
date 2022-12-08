@@ -20,7 +20,7 @@ test_all:
 	cargo test -- --include-ignored
 
 # Generate usage samples
-_usage:
+usage:
 	cargo run -q -- --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/help.adoc
 	cargo run -q -- init --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_init.adoc
 	cargo run -q -- repo --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_repo.adoc
@@ -29,7 +29,7 @@ _usage:
 	cargo run -q -- config --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_config.adoc
 
 # Generate documentation
-doc: _usage
+doc:
 	cargo doc -p subrpc -p subrpc-core --all-features --no-deps
 
 # Run rustfmt
@@ -62,3 +62,10 @@ tag:
     echo Tagging version v$TAG
     git tag "v$TAG" -f
     git tag | sort -Vr | head
+
+# Start a local web server to serve the registries located under the registry folder
+serve_reg:
+	#!/bin/sh
+	LOCAL_REG=registry
+	ls -al --color $LOCAL_REG
+	python -m http.server 9000 --directory $LOCAL_REG --bind 127.0.0.1

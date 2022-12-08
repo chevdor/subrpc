@@ -9,9 +9,13 @@ use std::{
 	path::{Path, PathBuf},
 };
 
-use crate::{endpoint::Endpoint, ChainName, Registry};
+use crate::{endpoint::Endpoint, Registry};
 
-/// This is the local data collected from the various regitries
+/// Local user data collected from the various regitries.
+///
+/// It contains the list of registries. Some may be disabled.
+/// The data for each registry can be updated in order to keep
+/// a fresh list of endpoints.
 #[derive(PartialEq, Debug, Deserialize, Serialize)]
 pub struct LocalData {
 	/// File where the local data are stored
@@ -22,9 +26,6 @@ pub struct LocalData {
 
 	/// DateTime of the last update of the data
 	pub last_update: Option<DateTime<Local>>,
-
-	/// HashMap providing a list of [Endpoint]s for a given chain
-	pub items: HashMap<ChainName, Vec<Endpoint>>,
 }
 
 impl LocalData {
@@ -42,7 +43,7 @@ impl LocalData {
 
 	/// Initialize a DB based on a given file.
 	/// After initializing a DB, you should ensure it contains
-	/// at least one registry and call the [refresh] function.
+	/// at least one registry and call the [Self::refresh] function.
 	pub fn init(file: &Path, force: bool) -> Result<Self> {
 		debug!("Initializing local data in {} with force: {:?}", file.display(), force);
 
@@ -73,7 +74,15 @@ impl LocalData {
 		self.registries.iter_mut().for_each(|(_registry_name, reg)| {
 			debug!(" - {} - enabled: {:?}", &reg.name, &reg.enabled);
 			// println!("reg = {:?}", &reg);
-			let _status = reg.update();
+			match reg.update() {
+				Ok(_) => {
+					info!("Update of '{}' OK", reg.name);
+				}
+				Err(e) => {
+					// eprintln!("{e:?}");
+					error!("Update registry '{}' failed: {e:?}", reg.name);
+				}
+			}
 		});
 
 		self.last_update = Some(Local::now());
@@ -95,42 +104,60 @@ impl LocalData {
 		Ok(self)
 	}
 
-	pub fn get_endpoints(&self, _chain: &str) -> Option<Vec<&Endpoint>> {
-		// let r = self
-		//     .registries
-		//     .iter()
-		//     .map(|(_, reg)| {
-		//         if !reg.enabled {
-		//             return None;
-		//         }
-
-		//         let res = reg
-		//             .items
-		//             .iter()
-		//             .filter(|(c, _)| c.as_str() == chain)
-		//             .map(|(_, &endpoints)| {
-		//                 let r: Vec<&Endpoint> = endpoints.iter().map(|e| e).collect();
-		//                 r
-		//             })
-		//             .reduce(|accum, item| accum.append(&mut item));
-
-		//         res
-		//     })
-		//     .collect();
-		// r
-		None
+	/// Get a list of endpoints matching an optional filter. If not
+	/// [chain] filter is passed, all endpoints are returned.
+	pub fn get_endpoints(&self, chain: Option<&str>) -> Vec<Endpoint> {
+		let mut endpoint_vec: Vec<Endpoint> = Vec::new();
+		self.registries.iter().for_each(|(_, reg)| {
+			if !reg.enabled {
+				// skipping
+			} else {
+				reg.rpc_endpoints
+					.iter()
+					.filter(|(c, _)| {
+						if let Some(filter) = chain {
+							c.as_str().to_ascii_lowercase() == filter.to_ascii_lowercase()
+						} else {
+							true
+						}
+					})
+					.for_each(|(_, e)| {
+						let ee = &mut e.clone();
+						endpoint_vec.append(ee);
+					});
+			}
+		});
+		endpoint_vec
 	}
 
+	/// Print the list of registries.
+	///
+	/// See also [Self::print_summary].
 	pub fn print_registries(&self) {
+		// println!("self.registries = {:?}", self.registries);
 		self.registries.iter().for_each(|(_name, reg)| {
 			println!("- [{}] {:?} {:?}", if reg.enabled { "X" } else { " " }, reg.name, reg.url);
+		})
+	}
+
+	/// Print a summary of your local db. It shows more information than [Self::print_registries].
+	pub fn print_summary(&self) {
+		self.registries.iter().for_each(|(_name, reg)| {
+			println!(
+				"- [{}] {} - {}",
+				if reg.enabled { "X" } else { " " },
+				reg.name,
+				if let Some(url) = &reg.url { url } else { "n/a" }
+			);
+			println!("      rpc endpoints: {:?}", reg.rpc_endpoints.len());
+			println!("      last update: {:?}", reg.last_update);
 		})
 	}
 }
 
 impl Default for LocalData {
 	fn default() -> Self {
-		Self { file: Self::get_default_file(), registries: HashMap::new(), items: HashMap::new(), last_update: None }
+		Self { file: Self::get_default_file(), registries: HashMap::new(), last_update: None }
 	}
 }
 

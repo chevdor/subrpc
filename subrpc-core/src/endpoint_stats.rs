@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
+#[allow(clippy::derive_hash_xor_eq)]
 /// Simple stats to help picking the best endpoint
-#[derive(PartialEq, Debug, Default, Deserialize, Serialize)]
+#[derive(Debug, Default, Deserialize, Serialize, Clone)]
 pub struct EndpointStats {
 	pub failures: u16,
 	pub success: u16,

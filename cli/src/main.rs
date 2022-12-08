@@ -2,7 +2,8 @@ mod opts;
 
 use std::process;
 
-use clap::{crate_authors, crate_name, crate_version, Parser};
+// use clap::{crate_authors, crate_name, crate_version};
+use clap::Parser;
 use env_logger::Env;
 use log::*;
 use opts::*;
@@ -13,12 +14,12 @@ fn main() -> color_eyre::Result<()> {
 	env_logger::Builder::from_env(Env::default().default_filter_or("none")).init();
 	let opts: Opts = Opts::parse();
 
-	println!("Running {} v{}", crate_name!(), crate_version!());
-	println!("{}", crate_authors!(", "));
+	// println!("Running {} v{}", crate_name!(), crate_version!());
+	// println!("{}", crate_authors!(", "));
 
 	let local_data_file = &LocalData::get_default_file();
 	debug!("Using local data from: {}", local_data_file.display());
-	let db = LocalData::init(local_data_file, false)
+	let mut db = LocalData::init(local_data_file, false)
 		.expect("Should be able to load local data")
 		.load()
 		.expect("Should load properly");
@@ -34,63 +35,62 @@ fn main() -> color_eyre::Result<()> {
 			debug!("Running Registry command");
 			debug!("cmd_opts: {:?}", cmd_opts);
 			match cmd_opts.registry_subcmd {
-                RegistrySubCommand::List(reg_opts) => {
-                    debug!("registry/list");
-                    debug!("reg_opts: {:?}", reg_opts);
-                    db.print_registries();
+				RegistrySubCommand::List(reg_opts) => {
+					debug!("registry/list");
+					debug!("reg_opts: {:?}", reg_opts);
+					db.print_registries();
 				}
 
 				RegistrySubCommand::Add(reg_opts) => {
 					debug!("registry/add");
-                    debug!("reg_opts: {:?}", reg_opts);
-                    let reg_maybe = Registry::load_from_url(&reg_opts.url);
+					debug!("reg_opts: {:?}", reg_opts);
+					let reg_maybe = Registry::load_from_url(&reg_opts.url);
 
-                    match reg_maybe {
+					match reg_maybe {
 						Ok(mut reg) => {
 							reg.url = Some(reg_opts.url);
-                            let reg_name = reg.name.clone();
-                            let res = db.add_registry(reg).save();
-                            match res {
+							let reg_name = reg.name.clone();
+							let res = db.add_registry(reg).save();
+							match res {
 								Ok(local_data) => {
-									println!("OK, {} has been added to your local data.", reg_name);
-                                    local_data.print_registries();
-                                },
-                                Err(e) => println!("Something went wrong while adding {} to your local data: {:?}", reg_name, e),
-                            }
-                        },
-                        Err(e) => println!("Error adding your registry from {}: {:?}", &reg_opts.url, e),
-                    }
-
-				}
-
-                // RegistrySubCommand::Enable(reg_opts) => {
-					//     debug!("registry/enable");
-					//     debug!("reg_opts: {:?}", reg_opts);
-					// }
-					// RegistrySubCommand::Remove(_) => {
-						//     debug!("registry/remove");
-
-						// },
+									println!("OK, {reg_name} has been added to your local data.");
+									local_data.print_registries();
+								}
+								Err(e) => println!(
+									"Something went wrong while adding {reg_name} to your local data: {e:?}"
+								),
+							}
+						}
+						Err(e) => println!("Error adding your registry from {}: {e:?}", &reg_opts.url),
 					}
-		}
-
-		// Update the list data from the registries
-		SubCommand::Update(cmd_opts) => {
-			debug!("Running Update command");
-			debug!("cmd_opts: {:?}", cmd_opts);
-
-			let db = db.refresh();
-			println!("db = {:?}", db);
-			let res = db.save();
-			match res {
-				Ok(_db) => {
-					println!("OK");
-					process::exit(0);
 				}
-				Err(e) => {
-					eprintln!("{e}");
-					process::exit(1);
+				RegistrySubCommand::Update(cmd_opts) => {
+					debug!("Running Update command");
+					debug!("cmd_opts: {:?}", cmd_opts);
+
+					let db = db.refresh();
+					db.print_summary();
+
+					let res = db.save();
+					match res {
+						Ok(_db) => {
+							println!("OK");
+							process::exit(0);
+						}
+						Err(e) => {
+							eprintln!("{e}");
+							process::exit(1);
+						}
+					}
 				}
+				// RegistrySubCommand::Enable(reg_opts) => {
+				//     debug!("registry/enable");
+				//     debug!("reg_opts: {:?}", reg_opts);
+				// }
+				// RegistrySubCommand::Remove(_) => {
+				//     debug!("registry/remove");
+
+				// },
 			}
 		}
 
@@ -105,23 +105,27 @@ fn main() -> color_eyre::Result<()> {
 				EndpointsSubCommand::Get(ep_opts) => {
 					debug!("endpoints/get");
 					debug!("ep_opts: {:?}", ep_opts);
-					todo!()
+					let endpoints = db.get_endpoints(Some(&ep_opts.chain));
+					endpoints.iter().for_each(|e| {
+						// println!("- {:<20}: {}", e.name, e.url);
+						println!("{}", e.url);
+					})
 				}
 
 				EndpointsSubCommand::List(ep_opts) => {
 					debug!("endpoints/list");
 					debug!("ep_opts: {:?}", ep_opts);
-					if db.items.is_empty() {
-						println!("No item found");
-						std::process::exit(1);
-					}
-
-					db.items.iter().for_each(|(name, list)| {
-						println!("- {name}");
-						list.iter().for_each(|ep| {
-							println!("  - {ep:?}");
-						})
+					let endpoints = db.get_endpoints(None);
+					endpoints.iter().for_each(|e| {
+						println!("{}", e.url);
 					})
+				}
+				EndpointsSubCommand::Ping(ep_opts) => {
+					debug!("endpoints/ping");
+					debug!("ep_opts: {:?}", ep_opts);
+					warn!("NOT FULLY IMPLEMENTED YET");
+					db.registries.iter_mut().for_each(|(_name, reg)| reg.refresh_stats());
+					warn!("NOT FULLY IMPLEMENTED YET");
 				}
 			}
 		}

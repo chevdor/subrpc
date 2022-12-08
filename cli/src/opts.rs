@@ -18,9 +18,6 @@ pub enum SubCommand {
 	#[clap(alias="reg", version = crate_version!(), author = crate_authors!())]
 	Registry(RegistryOpts),
 
-	#[clap(alias="up", version = crate_version!(), author = crate_authors!())]
-	Update(UpdateOpts),
-
 	#[clap(alias="sys", version = crate_version!(), author = crate_authors!())]
 	System(SystemOpts),
 
@@ -56,6 +53,8 @@ pub enum RegistrySubCommand {
 
 	// #[clap(alias="rm", version = crate_version!(), author = crate_authors!())]
 	// Remove(RegistryRemoveOpts),
+	#[clap(alias="up", version = crate_version!(), author = crate_authors!())]
+	Update(RegistryUpdateOpts),
 }
 
 /// You can find all available commands below.
@@ -76,11 +75,14 @@ pub enum EndpointsSubCommand {
 
 	#[clap(version = crate_version!(), author = crate_authors!())]
 	Get(EndpointsGetOpts),
+
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Ping(EndpointsPingOpts),
 }
 
 /// Fetch the latest data from the registries and update the list of endpoints
 #[derive(Debug, Parser)]
-pub struct UpdateOpts {}
+pub struct RegistryUpdateOpts {}
 
 /// Endpoints
 #[derive(Debug, Parser)]
@@ -117,6 +119,7 @@ pub struct RegistryListOpts {}
 /// Add a new registry. It will be enabled by default.
 #[derive(Debug, Parser)]
 pub struct RegistryAddOpts {
+	/// Url of the registry. This should be pointing to a json file.
 	#[clap(index = 1)]
 	pub url: String,
 }
@@ -128,6 +131,7 @@ pub struct RegistryRemoveOpts {}
 /// Enable or disable a registry
 #[derive(Debug, Parser)]
 pub struct RegistryEnableOpts {
+	/// true/false
 	#[clap(index = 1)]
 	pub state: bool,
 }
@@ -148,6 +152,14 @@ pub struct SystemInfoOpts {}
 #[derive(Debug, Parser)]
 pub struct EndpointsListOpts {}
 
+/// Ping endpoints
+#[derive(Debug, Parser)]
+pub struct EndpointsPingOpts {}
+
 /// Get one or some endpoints
 #[derive(Debug, Parser)]
-pub struct EndpointsGetOpts {}
+pub struct EndpointsGetOpts {
+	/// Name of the chain. Case insensitive.
+	#[clap(index = 1)]
+	pub chain: String,
+}

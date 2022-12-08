@@ -1,7 +1,8 @@
 use crate::{empty_string_array, EndpointStats, EndpointUrl};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Hash, Deserialize, Serialize)]
+#[allow(clippy::derive_hash_xor_eq)]
+#[derive(Debug, Hash, Deserialize, Serialize, Clone)]
 pub struct Endpoint {
 	/// Name of the endpoint
 	pub name: String,

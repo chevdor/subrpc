@@ -17,6 +17,10 @@ use tokio::runtime::Runtime;
 
 #[derive(Eq, Debug, Deserialize, Serialize)]
 pub struct Registry {
+	/// Data won't be pulled from a disabled registry
+	#[serde(default = "default_true")]
+	pub enabled: bool,
+
 	/// Name of the registry
 	pub name: String,
 
@@ -31,12 +35,7 @@ pub struct Registry {
 	pub last_update: Option<DateTime<Local>>,
 
 	/// Items of the registry
-	pub items: HashMap<ChainName, Vec<Endpoint>>,
-
-	/// Data won't be pulled from a disabled registry
-	#[serde(skip_deserializing)]
-	#[serde(default = "default_true")]
-	pub enabled: bool,
+	pub rpc_endpoints: HashMap<ChainName, Vec<Endpoint>>,
 }
 
 impl PartialEq for Registry {
@@ -50,7 +49,7 @@ impl Registry {
 		Self {
 			name: name.to_string(),
 			url: Some(url.to_string()),
-			items: HashMap::new(),
+			rpc_endpoints: HashMap::new(),
 			enabled: true,
 			last_update: None,
 			labels: vec![],
@@ -79,8 +78,8 @@ impl Registry {
 		if let Some(registry_url) = &self.url {
 			let reg = reqwest::blocking::get(registry_url)?.json::<Registry>()?;
 
-			self.items = reg.items;
-			debug!("Found {:?} items", self.items.len());
+			self.rpc_endpoints = reg.rpc_endpoints;
+			debug!("Found {:?} items", self.rpc_endpoints.len());
 		} else {
 			log::warn!("No URL, skipping...");
 		}
@@ -90,7 +89,7 @@ impl Registry {
 
 	/// Ping all endpoints and refresh the stats
 	pub fn refresh_stats(&mut self) {
-		self.items.iter_mut().for_each(|(_name, endpoints)| {
+		self.rpc_endpoints.iter_mut().for_each(|(_name, endpoints)| {
 			endpoints.iter_mut().for_each(|endpoint| {
 				let (success, latency) = Self::ping(endpoint).unwrap_or((false, None));
 				let stats = &mut endpoint.stats;
@@ -99,9 +98,11 @@ impl Registry {
 		})
 	}
 
-	/// Ping all endpoints and print the results to stdout
+	/// Ping all endpoints and print the results to stdout.
+	///
+	/// Calling this function does NOT refresh the stats.
 	pub fn ping_all(&mut self) {
-		self.items.iter_mut().for_each(|(_name, endpoints)| {
+		self.rpc_endpoints.iter_mut().for_each(|(_name, endpoints)| {
 			endpoints.iter_mut().for_each(|endpoint| {
 				let (success, latency) = Self::ping(endpoint).unwrap_or((false, None));
 				if success {
@@ -115,24 +116,24 @@ impl Registry {
 	}
 
 	pub fn ping(e: &Endpoint) -> Result<(bool, Option<f32>)> {
-		debug!("    pinging endpoint {} at {}", e.name, e.url);
+		debug!("pinging endpoint {} at {}", e.name, e.url);
 		let rt = Runtime::new().unwrap();
 		let start = Instant::now();
 
 		let response: Result<String> = match &e.url {
-			EndpointUrl::Http(url) | EndpointUrl::Https(url) => {
+			EndpointUrl::Https(url) | EndpointUrl::Http(url) => {
 				let client = HttpClientBuilder::default().build(url)?;
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
-			EndpointUrl::Ws(url) | EndpointUrl::Wss(url) => {
+			EndpointUrl::Wss(url) | EndpointUrl::Ws(url) => {
 				let client = rt.block_on(WsClientBuilder::default().build(url))?;
-
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
 		};
+		debug!("response = {:?}", response);
 		let duration = start.elapsed().as_millis() as f32 / 1000f32;
 		let success = response.is_ok();
-
+		rt.shutdown_background();
 		Ok((success, Some(duration)))
 	}
 
@@ -154,11 +155,9 @@ impl Registry {
 		debug!("Adding registry from {url}");
 		reqwest::blocking::get(url)?.json::<Registry>().map_err(anyhow::Error::msg)
 	}
-}
 
-impl Default for Registry {
-	fn default() -> Self {
-		let items = HashMap::from([
+	pub fn default_bad() -> Self {
+		let rpc_endpoints = HashMap::from([
 			(
 				"Polkadot".to_string(),
 				vec![
@@ -183,7 +182,40 @@ impl Default for Registry {
 			),
 		]);
 
-		Self { name: "SubRPC Default".to_string(), url: None, items, enabled: true, last_update: None, labels: vec![] }
+		Self { rpc_endpoints, ..Default::default() }
+	}
+}
+
+impl Default for Registry {
+	fn default() -> Self {
+		let rpc_endpoints = HashMap::from([
+			(
+				"Polkadot".to_string(),
+				vec![
+					Endpoint::new("Parity", "wss://rpc.polkadot.io:443", vec!["Parity".to_string()]),
+					Endpoint::new(
+						"OnFinality",
+						"wss://polkadot.api.onfinality.io:443/public-ws",
+						vec!["OnFinality".to_string()],
+					),
+				],
+			),
+			(
+				"Kusama".to_string(),
+				vec![
+					Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()]),
+				],
+			),
+		]);
+
+		Self {
+			name: "SubRPC Default".to_string(),
+			url: None,
+			rpc_endpoints,
+			enabled: true,
+			last_update: None,
+			labels: vec![],
+		}
 	}
 }
 
@@ -195,7 +227,7 @@ impl Display for Registry {
 			&self.url.clone().unwrap_or("n/a".to_string())
 		));
 
-		self.items.iter().for_each(|(name, endpoints)| {
+		self.rpc_endpoints.iter().for_each(|(name, endpoints)| {
 			let _ = f.write_fmt(format_args!("  - {name}\n"));
 			endpoints.iter().for_each(|e| {
 				let _ = f.write_fmt(format_args!(
@@ -243,9 +275,9 @@ mod test_super {
 	}
 
 	#[test]
-	fn test_ping() {
+	fn test_ping_each() {
 		let reg1 = Registry::default();
-		reg1.items.iter().for_each(|(_chain, endpoints)| {
+		reg1.rpc_endpoints.iter().for_each(|(_chain, endpoints)| {
 			endpoints.iter().for_each(|e| {
 				println!("Checking {}: {:?}", e.name, e.url);
 				let (success, duration) = Registry::ping(e).unwrap();
@@ -253,7 +285,6 @@ mod test_super {
 				assert!(success);
 			});
 		});
-		// let endpoint = Endpoint::new("tmp", "wss://rpc.polkadot.io:443");
 	}
 
 	#[test]

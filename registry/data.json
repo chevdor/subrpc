@@ -3,14 +3,12 @@
   "url": null,
   "labels": ["SubRPC", "Default"],
   "last_updated": "2022-12-06Z16:38:00T",
-  "items": {
+  "rpc_endpoints": {
     "Polkadot": [
       {
         "name": "Parity",
         "labels": [],
-        "url": {
-          "Wss": "wss://rpc.polkadot.io:443"
-        },
+        "url":"wss://rpc.polkadot.io:443",
         "stats": {
           "failures": 0,
           "success": 0,
@@ -20,9 +18,7 @@
       {
         "name": "OnFinality",
         "labels": [],
-        "url": {
-          "Wss": "wss://polkadot.api.onfinality.io:443/public-ws"
-        },
+        "url": "wss://polkadot.api.onfinality.io:443/public-ws",
         "stats": {
           "failures": 0,
           "success": 0,
@@ -34,9 +30,7 @@
       {
         "name": "Parity",
         "labels": [],
-        "url": {
-          "Wss": "wss://kusama-rpc.polkadot.io:443"
-        },
+        "url": "wss://kusama-rpc.polkadot.io:443",
         "stats": {
           "failures": 0,
           "success": 0,
@@ -46,9 +40,7 @@
       {
         "name": "Parity Bad",
         "labels": [],
-        "url": {
-          "Wss": "wss://bad-rpc.polkadot.io:443"
-        },
+        "url": "wss://bad-rpc.polkadot.io:443",
         "stats": {
           "failures": 0,
           "success": 0,
