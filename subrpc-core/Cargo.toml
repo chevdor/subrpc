@@ -1,7 +1,7 @@
 [package]
 authors = ["chevdor <chevdor@gmail.com>"]
 name = "subrpc-core"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 description = "subrpc-core is a lib"
 homepage = "https://github.com/chevdor/subrpc-core"
