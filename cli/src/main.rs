@@ -2,8 +2,8 @@ mod opts;
 
 use std::process;
 
-// use clap::{crate_authors, crate_name, crate_version};
 use clap::Parser;
+use clap::{crate_authors, crate_name, crate_version};
 use env_logger::Env;
 use log::*;
 use opts::*;
@@ -13,9 +13,6 @@ use subrpc_core::*;
 fn main() -> color_eyre::Result<()> {
 	env_logger::Builder::from_env(Env::default().default_filter_or("none")).init();
 	let opts: Opts = Opts::parse();
-
-	// println!("Running {} v{}", crate_name!(), crate_version!());
-	// println!("{}", crate_authors!(", "));
 
 	let local_data_file = &LocalData::get_default_file();
 	debug!("Using local data from: {}", local_data_file.display());
@@ -100,10 +97,22 @@ fn main() -> color_eyre::Result<()> {
 			}
 		}
 
-		// SubCommand::System(cmd_opts) => {
-		// 	debug!("Running System command");
-		// 	debug!("cmd_opts: {:?}", cmd_opts);
-		// }
+		SubCommand::System(cmd_opts) => {
+			debug!("Running System command");
+			debug!("cmd_opts: {:?}", cmd_opts);
+			match cmd_opts.system_subcmd {
+				SystemSubCommand::Info(sys_opts) => {
+					debug!("sys_opts: {:?}", sys_opts);
+
+					println!("Running {} v{}", crate_name!(), crate_version!());
+					println!("{}", crate_authors!(", "));
+
+					println!("local data file: {}", local_data_file.display());
+					db.print_summary();
+				}
+			}
+		}
+
 		SubCommand::Endpoints(cmd_opts) => {
 			debug!("Running Endpoints command");
 			debug!("cmd_opts: {:?}", cmd_opts);
