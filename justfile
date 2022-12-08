@@ -69,3 +69,9 @@ serve_reg:
 	LOCAL_REG=registry
 	ls -al --color $LOCAL_REG
 	python -m http.server 9000 --directory $LOCAL_REG --bind 127.0.0.1
+
+reg_reset:
+	cargo run -- init
+	cargo run -- reg add http://localhost:9000/reg1.json
+	cargo run -- reg add http://localhost:9000/reg2.json
+	cargo run -- reg up
