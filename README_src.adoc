@@ -15,8 +15,8 @@ This helps your apps no longer having to provide a flag such as `your-cli --url 
 
 include::doc/registries.adoc[]
 
-include::doc/faq.adoc[]
-
 == Usage
 
 include::doc/usage.adoc[leveloffset=+1]
+
+include::doc/faq.adoc[]

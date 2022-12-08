@@ -18,30 +18,6 @@ You can find below a list of public registries:
 
 -   Add your registry with [Pull Request](https://github.com/chevdor/subrpc/pulls)
 
-## FAQ
-
-> Is SubRPC a registry ?
-
-No. While SubRPC provides a very basic default list of RPC endpoints, this list will remain small and rather unmaintained. It will contain only a few of the core RPC Enpoints of the network and will surely miss many important ones.
-
-> Can I use a private registry ?
-
-Sure! And this is the idea behind SubRPC. You can tap into both public and private registry to build up your very own database of RPC Endpoints.
-
-> How can I be sure that my list is up to date ?
-
-The `subrpc` can help you refresh/update your endpoints in 2 ways: first it will check the registries for new endpoints and add them to your list, but it will also test the endpoints in order to ensure that your local endpoints list remains of quality.
-
-Using the `subrpc-core` crate also gather (locally) some information about the RPC Endpoints you are connecting to. This is done to allow you skipping poor quality Endpoints over time, while keeping a list of quality RPC Endpoints up to date. This is all local and 100% opinionated: an endpoint you may see as bad may work great for someone else, moreover, the config (will) allow customizing the list of endpoints.
-
-> Can I host my own registry ?
-
-Absolutely and that would be great. If you make a public one, please open a PR in this repo so we can document the list of public registries.
-
-> How does SubRPC decides whether an RPC Endpoint is good or bad ?
-
-Eveytime you connect (or ask for a refresh), SubRPC checks whether an endpoint is reachable and if it is, gathers a few metrics about it. This allows maintaining a list of the best endpoints **for you**. This list is personal and remains on your machine.
-
 ## Usage
 
 ## Help
@@ -123,3 +99,27 @@ Eveytime you connect (or ask for a refresh), SubRPC checks whether an endpoint i
     Options:
       -h, --help     Print help information
       -V, --version  Print version information
+
+## FAQ
+
+> Is SubRPC a registry ?
+
+No. While SubRPC provides a very basic default list of RPC endpoints, this list will remain small and rather unmaintained. It will contain only a few of the core RPC Enpoints of the network and will surely miss many important ones.
+
+> Can I use a private registry ?
+
+Sure! And this is the idea behind SubRPC. You can tap into both public and private registry to build up your very own database of RPC Endpoints.
+
+> How can I be sure that my list is up to date ?
+
+The `subrpc` can help you refresh/update your endpoints in 2 ways: first it will check the registries for new endpoints and add them to your list, but it will also test the endpoints in order to ensure that your local endpoints list remains of quality.
+
+Using the `subrpc-core` crate also gather (locally) some information about the RPC Endpoints you are connecting to. This is done to allow you skipping poor quality Endpoints over time, while keeping a list of quality RPC Endpoints up to date. This is all local and 100% opinionated: an endpoint you may see as bad may work great for someone else, moreover, the config (will) allow customizing the list of endpoints.
+
+> Can I host my own registry ?
+
+Absolutely and that would be great. If you make a public one, please open a PR in this repo so we can document the list of public registries.
+
+> How does SubRPC decides whether an RPC Endpoint is good or bad ?
+
+Eveytime you connect (or ask for a refresh), SubRPC checks whether an endpoint is reachable and if it is, gathers a few metrics about it. This allows maintaining a list of the best endpoints **for you**. This list is personal and remains on your machine.
