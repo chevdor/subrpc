@@ -262,8 +262,6 @@ mod test_super {
 
 	#[test]
 	fn test_refresh_stats() {
-		env_logger::init();
-
 		let mut reg1 = Registry::default();
 		reg1.refresh_stats();
 		println!("{}", &reg1);
@@ -273,8 +271,6 @@ mod test_super {
 
 	#[test]
 	fn test_ping_all() {
-		env_logger::init();
-
 		let mut reg1 = Registry::default();
 		reg1.ping_all();
 	}
