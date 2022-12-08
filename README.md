@@ -14,8 +14,9 @@ This helps your apps no longer having to provide a flag such as `your-cli --url 
     subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json
     subrpc reg add https://paritytech.github.io/polkadot_network_directory/registry.json
     subrpc reg up
-    subrpc reg ls
+    subrpc system info
     subrpc ep ls
+    subrpc ep get polkadot
 
 ## Registries
 
