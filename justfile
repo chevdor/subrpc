@@ -72,6 +72,6 @@ serve_reg:
 
 reg_reset:
 	cargo run -- init
-	cargo run -- reg add http://localhost:9000/reg1.json
-	cargo run -- reg add http://localhost:9000/reg2.json
+	cargo run -- reg add http://localhost:9000/sample1.json
+	cargo run -- reg add http://localhost:9000/sample2.json
 	cargo run -- reg up

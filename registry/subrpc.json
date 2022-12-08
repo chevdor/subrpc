@@ -1,0 +1,37 @@
+{
+    "name": "SubRPC Registry",
+    "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json",
+    "labels": [
+        "SubRPC"
+    ],
+    "last_updated": "2022-12-06Z16:38:00T",
+    "rpc_endpoints": {
+        "Polkadot": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://rpc.polkadot.io:443"
+            },
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://polkadot.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Kusama": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://kusama-rpc.polkadot.io:443"
+            }
+        ],
+        "Westend": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://westend-rpc.polkadot.io:443"
+            }
+        ]
+    },
+    "enabled": true
+}
