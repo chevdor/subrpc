@@ -47,6 +47,9 @@ pub enum RegistrySubCommand {
 	List(RegistryListOpts),
 
 	#[clap(version = crate_version!(), author = crate_authors!())]
+	Show(RegistryShowOpts),
+
+	#[clap(version = crate_version!(), author = crate_authors!())]
 	Add(RegistryAddOpts),
 	// #[clap(version = crate_version!(), author = crate_authors!())]
 	// Enable(RegistryEnableOpts),
@@ -115,6 +118,10 @@ pub struct SystemOpts {
 /// List currently known registries
 #[derive(Debug, Parser)]
 pub struct RegistryListOpts {}
+
+/// Show the list of registries and some of the content
+#[derive(Debug, Parser)]
+pub struct RegistryShowOpts {}
 
 /// Add a new registry. It will be enabled by default.
 #[derive(Debug, Parser)]

@@ -41,6 +41,12 @@ fn main() -> color_eyre::Result<()> {
 					db.print_registries();
 				}
 
+				RegistrySubCommand::Show(reg_opts) => {
+					debug!("registry/show");
+					debug!("reg_opts: {:?}", reg_opts);
+					db.print_summary();
+				}
+
 				RegistrySubCommand::Add(reg_opts) => {
 					debug!("registry/add");
 					debug!("reg_opts: {:?}", reg_opts);
