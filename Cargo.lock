@@ -1706,6 +1706,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "subrpc-examples"
+version = "0.0.1"
+dependencies = [
+ "env_logger",
+ "subrpc-core",
+]
+
+[[package]]
 name = "syn"
 version = "1.0.105"
 source = "registry+https://github.com/rust-lang/crates.io-index"

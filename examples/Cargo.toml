@@ -1,0 +1,15 @@
+[package]
+name = "subrpc-examples"
+version = "0.0.1"
+authors = ["chevdors"]
+edition = "2021"
+publish = false
+
+license = "MIT"
+repository = "https://github.com/chevdor/subrpc"
+homepage = "https://github.com/chevdor/subrpc"
+description = "Subrpc examples"
+
+[dev-dependencies]
+subrpc-core = { path = "../subrpc-core" }
+env_logger = "0.10"

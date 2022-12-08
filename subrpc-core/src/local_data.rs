@@ -175,7 +175,7 @@ mod test_local_data {
             .expect("Saving data should work")
             .load().expect("Load works")
             .add_registry(Registry::new("SubRPC", "http://some-registry/data.json"))
-            .add_registry(Registry::new("SubRPC Gist", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/64479d971ce984e6d61010b94a2f81a4c5896d9d/data.json"))
+            .add_registry(Registry::new("SubRPC Gist", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/6992b0a2924f80f691e4844c1731564f0e2a62ec/data.json"))
             .refresh()
             .save().expect("Saving works");
 		println!("{:#?}", data);
@@ -187,8 +187,8 @@ mod test_local_data {
 
 		let data = LocalData::init(&LocalData::get_default_file(), true)
             .expect("Forced init should work")
-            .add_registry(Registry::new("SubRPC Gist 1", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/64479d971ce984e6d61010b94a2f81a4c5896d9d/data.json"))
-            .add_registry(Registry::new("SubRPC Gist 2", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/41fd7aba8ffc02e1adde4590eb145f583a0c7689/data2.json"))
+            .add_registry(Registry::new("SubRPC Gist 1", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/6992b0a2924f80f691e4844c1731564f0e2a62ec/data.json"))
+            .add_registry(Registry::new("SubRPC Gist 2", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/6992b0a2924f80f691e4844c1731564f0e2a62ec/data2.json"))
             .refresh()
             .save().expect("Saving works");
 		assert_eq!(2, data.registries.len());

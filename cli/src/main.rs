@@ -22,12 +22,6 @@ fn main() -> color_eyre::Result<()> {
 		.expect("Should load properly");
 
 	match opts.subcmd {
-		SubCommand::Init(cmd_opts) => {
-			debug!("Running Init command");
-			debug!("cmd_opts: {:?}", cmd_opts);
-			let _db = LocalData::init(local_data_file, true);
-		}
-
 		SubCommand::Registry(cmd_opts) => {
 			debug!("Running Registry command");
 			debug!("cmd_opts: {:?}", cmd_opts);
@@ -109,6 +103,11 @@ fn main() -> color_eyre::Result<()> {
 
 					println!("local data file: {}", local_data_file.display());
 					db.print_summary();
+				}
+				SystemSubCommand::Init(sys_opts) => {
+					debug!("Running Init command");
+					debug!("sys_opts: {:?}", sys_opts);
+					let _db = LocalData::init(local_data_file, true);
 				}
 			}
 		}

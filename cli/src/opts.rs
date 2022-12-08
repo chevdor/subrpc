@@ -12,9 +12,6 @@ pub struct Opts {
 /// You can find all available commands below.
 #[derive(Debug, Subcommand)]
 pub enum SubCommand {
-	#[clap(version = crate_version!(), author = crate_authors!())]
-	Init(InitOpts),
-
 	#[clap(alias="reg", version = crate_version!(), author = crate_authors!())]
 	Registry(RegistryOpts),
 
@@ -28,8 +25,10 @@ pub enum SubCommand {
 	Config(ConfigOpts),
 }
 
-/// Force `init` the `subrpc` local data. This is done automatically as needed and
-/// you usually should not call this command manually unless you know what you are doing.
+/// Reset your local database.
+///
+/// This is done automatically as needed and you usually should not call this
+/// command manually unless you know what you are doing.
 #[derive(Debug, Parser)]
 pub struct InitOpts {}
 
@@ -106,6 +105,9 @@ pub struct ConfigOpts {
 pub enum SystemSubCommand {
 	#[clap(alias= "ls", version = crate_version!(), author = crate_authors!())]
 	Info(SystemInfoOpts),
+
+	#[clap(version = crate_version!(), author = crate_authors!())]
+	Init(InitOpts),
 }
 
 /// System
@@ -151,7 +153,7 @@ pub struct ConfigListOpts {}
 #[derive(Debug, Parser)]
 pub struct ConfigEditOpts {}
 
-/// System info
+/// Show general system information such as the location of relevant files
 #[derive(Debug, Parser)]
 pub struct SystemInfoOpts {}
 

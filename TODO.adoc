@@ -1,4 +1,5 @@
 - [x] dedup endpoints for ep ls
 - [x] dedup endpoints for ep get
-- [ ] add example to use the lib
+- [x] add example to use the lib
 - [ ] add option for ls/get to return only the best N endpoints
+- [ ] allow async refresh of the registries
