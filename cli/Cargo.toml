@@ -11,9 +11,11 @@ readme = "README.md"
 repository = "https://github.com/chevdor/subrpc"
 
 [dependencies]
-assert_cmd = "2.0"
 env_logger = "0.10"
 log = "0.4"
 clap = { version = "4", features = ["derive", "env", "unicode", "cargo"] }
 color-eyre = "0.6.2"
 subrpc-core = { path = "../subrpc-core" }
+
+[dev-dependencies]
+assert_cmd = "2.0"

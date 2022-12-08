@@ -103,14 +103,19 @@ impl Registry {
 	/// Calling this function does NOT refresh the stats.
 	pub fn ping_all(&mut self) {
 		self.rpc_endpoints.iter_mut().for_each(|(_name, endpoints)| {
-			endpoints.iter_mut().for_each(|endpoint| {
-				let (success, latency) = Self::ping(endpoint).unwrap_or((false, None));
-				if success {
-					print!("✅ {:0.3}s", latency.unwrap_or(0f32));
-				} else {
-					print!("{: <8}", "❌");
+			endpoints.iter_mut().for_each(|endpoint| match Self::ping(endpoint) {
+				Ok((success, latency)) => {
+					if success {
+						print!("✅ {:0.3}s", latency.unwrap_or(0f32));
+					} else {
+						print!("{: <8}", "❌");
+					}
+					println!(" - {:<20} {}", endpoint.name, endpoint.url);
 				}
-				println!(" - {:<20} {}", endpoint.name, endpoint.url);
+				Err(e) => {
+					eprint!("{: <8}", "❌");
+					eprintln!("{}: {e}", endpoint.url);
+				}
 			})
 		})
 	}
@@ -122,10 +127,12 @@ impl Registry {
 
 		let response: Result<String> = match &e.url {
 			EndpointUrl::Https(url) | EndpointUrl::Http(url) => {
+				debug!("Detected HTTP/S");
 				let client = HttpClientBuilder::default().build(url)?;
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
 			EndpointUrl::Wss(url) | EndpointUrl::Ws(url) => {
+				debug!("Detected WS/S");
 				let client = rt.block_on(WsClientBuilder::default().build(url))?;
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
@@ -202,9 +209,7 @@ impl Default for Registry {
 			),
 			(
 				"Kusama".to_string(),
-				vec![
-					Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()]),
-				],
+				vec![Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()])],
 			),
 		]);
 

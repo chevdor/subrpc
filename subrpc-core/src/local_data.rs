@@ -3,7 +3,7 @@ use chrono::{DateTime, Local};
 use log::*;
 use serde::{Deserialize, Serialize};
 use std::{
-	collections::HashMap,
+	collections::{HashMap, HashSet},
 	fs::{self, File},
 	io::{Read, Write},
 	path::{Path, PathBuf},
@@ -106,8 +106,8 @@ impl LocalData {
 
 	/// Get a list of endpoints matching an optional filter. If not
 	/// [chain] filter is passed, all endpoints are returned.
-	pub fn get_endpoints(&self, chain: Option<&str>) -> Vec<Endpoint> {
-		let mut endpoint_vec: Vec<Endpoint> = Vec::new();
+	pub fn get_endpoints(&self, chain: Option<&str>) -> HashSet<Endpoint> {
+		let mut endpoint_vec: HashSet<Endpoint> = HashSet::new();
 		self.registries.iter().for_each(|(_, reg)| {
 			if !reg.enabled {
 				// skipping
@@ -122,8 +122,8 @@ impl LocalData {
 						}
 					})
 					.for_each(|(_, e)| {
-						let ee = &mut e.clone();
-						endpoint_vec.append(ee);
+						let ee = e.clone();
+						endpoint_vec.extend(ee.into_iter());
 					});
 			}
 		});

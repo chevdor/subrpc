@@ -1,14 +1,17 @@
 {
   "name": "SubRPC Test Registry 1",
   "url": null,
-  "labels": ["SubRPC", "Default"],
+  "labels": [
+    "SubRPC",
+    "Default"
+  ],
   "last_updated": "2022-12-06Z16:38:00T",
   "rpc_endpoints": {
     "Polkadot": [
       {
         "name": "Parity",
         "labels": [],
-        "url":"wss://rpc.polkadot.io:443",
+        "url": "wss://rpc.polkadot.io:443",
         "stats": {
           "failures": 0,
           "success": 0,

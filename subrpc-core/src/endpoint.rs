@@ -14,7 +14,7 @@ pub struct Endpoint {
 	/// Endpoint URL
 	pub url: EndpointUrl,
 
-	#[serde(skip_deserializing)]
+	#[serde(default)]
 	pub stats: EndpointStats,
 }
 
@@ -30,7 +30,7 @@ impl Endpoint {
 	pub fn new(name: &str, url: &str, labels: Vec<String>) -> Self {
 		Self {
 			name: name.to_string(),
-			url: EndpointUrl::Wss(url.to_string()), // FIXME: wrong
+			url: EndpointUrl::try_from(url).unwrap(),
 			labels,
 			stats: EndpointStats::default(),
 		}

@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(PartialEq, Hash, Eq, Debug, Deserialize, Serialize, Clone)]
 #[serde(untagged)]
+#[serde(try_from = "&str")]
 pub enum EndpointUrl {
 	Http(String),
 	Https(String),
@@ -45,12 +46,11 @@ impl TryFrom<&str> for EndpointUrl {
 	}
 }
 
-// impl Deserialize<'de> for EndpointUrl {
-//     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-//     where
-//         D: serde::Deserializer<'de> {
-//         todo!()
-//     }
+// /// Serde is using From<T>
+// impl From<&str> for EndpointUrl {
+// 	fn from(s: &str) -> Self {
+// 		Self::try_from(s).unwrap()
+// 	}
 // }
 
 #[cfg(test)]

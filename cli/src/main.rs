@@ -112,6 +112,7 @@ fn main() -> color_eyre::Result<()> {
 					debug!("endpoints/get");
 					debug!("ep_opts: {:?}", ep_opts);
 					let endpoints = db.get_endpoints(Some(&ep_opts.chain));
+					// let sorted_vec: Vec<_> = endpoints.iter().collect::<Vec<_>>().sort();
 					endpoints.iter().for_each(|e| {
 						// println!("- {:<20}: {}", e.name, e.url);
 						println!("{}", e.url);
@@ -129,9 +130,16 @@ fn main() -> color_eyre::Result<()> {
 				EndpointsSubCommand::Ping(ep_opts) => {
 					debug!("endpoints/ping");
 					debug!("ep_opts: {:?}", ep_opts);
-					warn!("NOT FULLY IMPLEMENTED YET");
-					db.registries.iter_mut().for_each(|(_name, reg)| reg.refresh_stats());
-					warn!("NOT FULLY IMPLEMENTED YET");
+
+					db.registries.iter_mut().for_each(|(_name, reg)| {
+						println!("Pinging endpoints from '{}'", reg.name);
+						reg.refresh_stats();
+					});
+
+					match db.save() {
+						Ok(_) => println!("OK"),
+						Err(e) => eprintln!("{e}"),
+					}
 				}
 			}
 		}
