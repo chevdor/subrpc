@@ -3,9 +3,7 @@
 Usage: subrpc <COMMAND>
 
 Commands:
-  init       Init subrpc, you usually won't need this
-  repo       Repo
-  update     Update
+  registry   Manage your registries
   system     System
   endpoints  Endpoints
   config     Config

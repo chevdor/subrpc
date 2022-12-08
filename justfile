@@ -22,8 +22,7 @@ test_all:
 # Generate usage samples
 usage:
 	cargo run -q -- --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/help.adoc
-	cargo run -q -- init --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_init.adoc
-	cargo run -q -- repo --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_repo.adoc
+	cargo run -q -- registry --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_registry.adoc
 	cargo run -q -- system --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_system.adoc
 	cargo run -q -- endpoints --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_endpoints.adoc
 	cargo run -q -- config --help | sed -e 's/\x1b\[[0-9;]*m//g' > doc/usage_config.adoc

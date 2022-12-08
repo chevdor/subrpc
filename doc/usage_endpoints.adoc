@@ -1,6 +1,12 @@
 Endpoints
 
-Usage: subrpc endpoints
+Usage: subrpc endpoints <COMMAND>
+
+Commands:
+  list  Show the list of all endpoints
+  get   Get one or some endpoints
+  ping  Ping endpoints
+  help  Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help     Print help information

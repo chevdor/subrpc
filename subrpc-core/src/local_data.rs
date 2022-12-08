@@ -105,7 +105,7 @@ impl LocalData {
 	}
 
 	/// Get a list of endpoints matching an optional filter. If not
-	/// [chain] filter is passed, all endpoints are returned.
+	/// `chain` filter is passed, all endpoints are returned.
 	pub fn get_endpoints(&self, chain: Option<&str>) -> HashSet<Endpoint> {
 		let mut endpoint_vec: HashSet<Endpoint> = HashSet::new();
 		self.registries.iter().for_each(|(_, reg)| {

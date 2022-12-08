@@ -8,8 +8,8 @@ include::usage_init.adoc[]
 == Config
 include::usage_config.adoc[]
 
-== Repo
-include::usage_repo.adoc[]
+== Registry
+include::usage_registry.adoc[]
 
 == Endpoints
 include::usage_endpoints.adoc[]
