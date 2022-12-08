@@ -8,6 +8,15 @@ While the `subrpc` cli allows using the data in a terminal, the `subrpc-core` cr
 
 This helps your apps no longer having to provide a flag such as `your-cli --url wss://rpc.polkadot.io` but instead use `your-cli --chain polkadot` and be sure to connect to a quality RPC endpoint.
 
+## Quick start
+
+    cargo install subrpc
+    subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json
+    subrpc reg add https://paritytech.github.io/polkadot_network_directory/registry.json
+    subrpc reg up
+    subrpc reg ls
+    subrpc ep ls
+
 ## Registries
 
 Registries are mainly a list of RPC endpoints, stored into a json file and available via a web server (public or not).
@@ -15,6 +24,8 @@ Registries are mainly a list of RPC endpoints, stored into a json file and avail
 You can find below a list of public registries:
 
 -   [Polkadot Network Directory Registry](https://paritytech.github.io/polkadot_network_directory/registry.json): The [Polkadot Network Directory](https://paritytech.github.io/polkadot_network_directory) project is aware of many chains and projects and provides a registry that is automatically updated and based on the data available to the directory
+
+-   [SubRPC Registry](https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json): A small basic registry to get started and show an example
 
 -   Add your registry with [Pull Request](https://github.com/chevdor/subrpc/pulls)
 
