@@ -11,10 +11,14 @@ This helps your apps no longer having to provide a flag such as `your-cli --url 
 ## Quick start
 
     cargo install subrpc
+
+    # `reg` is an alias for `registry`
     subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json
     subrpc reg add https://paritytech.github.io/polkadot_network_directory/registry.json
     subrpc reg up
     subrpc system info
+
+    # `ep` is an alias for `endpoints`
     subrpc ep ls
     subrpc ep get polkadot
 

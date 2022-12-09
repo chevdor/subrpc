@@ -8,6 +8,7 @@ use env_logger::Env;
 use log::*;
 use opts::*;
 use subrpc_core::*;
+use webbrowser::{Browser, BrowserOptions};
 
 /// Main entry point of the `subwasm` cli
 fn main() -> color_eyre::Result<()> {
@@ -147,6 +148,25 @@ fn main() -> color_eyre::Result<()> {
 					match db.save() {
 						Ok(_) => println!("OK"),
 						Err(e) => eprintln!("{e}"),
+					}
+				}
+				EndpointsSubCommand::Open(ep_opts) => {
+					debug!("endpoints/ping");
+					debug!("ep_opts: {:?}", ep_opts);
+					let endpoints = db.get_endpoints(Some(&ep_opts.chain));
+					match endpoints.iter().next() {
+						Some(endpoint) => {
+							let url = format!("https://polkadot.js.org/apps/?rpc={}", endpoint.url);
+
+							log::debug!("Opening '{}' via {}", ep_opts.chain, url);
+							let mut browser_options = BrowserOptions::new();
+							browser_options.with_target_hint(&ep_opts.chain);
+							webbrowser::open_browser_with_options(Browser::Default, &url, &browser_options)
+								.expect("Problem while opening default browser");
+						}
+						None => {
+							eprintln!("No endpoint found for '{}'", ep_opts.chain)
+						}
 					}
 				}
 			}
