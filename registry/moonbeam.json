@@ -1,0 +1,42 @@
+{
+    "name": "Moonbeam Fundation",
+    "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/moonbeam.json",
+    "labels": [
+        "Moonbeam"
+    ],
+    "last_updated": "2022-12-06Z16:38:00T",
+    "rpc_endpoints": {
+        "Moonbase": [
+            {
+                "name": "Moonbeam Fundation",
+                "labels": [
+                    "testnet",
+                    "solochain"
+                ],
+                "url": "wss://wss.api.moonbase.moonbeam.network:443"
+            }
+        ],
+        "Moonriver": [
+            {
+                "name": "Moonbeam Fundation",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://wss.api.moonriver.moonbeam.network:443"
+            }
+        ],
+        "Moonbeam": [
+            {
+                "name": "Moonbeam Fundation",
+                "labels": [
+                    "mainnet",
+                    "parachain"
+                ],
+                "url": "wss://wss.api.moonbeam.network:443"
+            }
+        ]
+    },
+    "enabled": true
+}
