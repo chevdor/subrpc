@@ -257,7 +257,7 @@ mod test_super {
 	fn test_default() {
 		let reg1 = Registry::default();
 		let json = ::serde_json::to_string_pretty(&reg1).unwrap();
-		println!("json= {}", json);
+		println!("json= {json}");
 	}
 
 	#[test]
@@ -293,7 +293,7 @@ mod test_super {
 		let reg1 = Registry::default();
 		let tmpdir = env::temp_dir();
 		let target_file = Path::new(&tmpdir).join("subrpc.json");
-		println!("Saving to {:?}", target_file);
+		println!("Saving to {target_file:?}");
 		assert!(reg1.save(target_file).is_ok());
 	}
 
@@ -303,7 +303,7 @@ mod test_super {
 		let tmpdir = env::temp_dir();
 		let target_file = Path::new(&tmpdir).join("subrpc.json");
 		assert!(reg1.save(target_file.clone()).is_ok());
-		let reg2 = Registry::load(target_file.clone());
+		let reg2 = Registry::load(target_file);
 		assert_eq!(reg2, reg1);
 	}
 
@@ -311,7 +311,7 @@ mod test_super {
 	fn test_load_from_url() {
 		let test_url = "https://paritytech.github.io/polkadot_network_directory/registry.json";
 		let reg = Registry::load_from_url(test_url).unwrap();
-		println!("{:#?}", reg);
+		println!("{reg:#?}");
 		assert_eq!("Polkadot Network Directory", reg.name);
 	}
 }

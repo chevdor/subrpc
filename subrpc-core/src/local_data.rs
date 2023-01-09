@@ -176,7 +176,7 @@ mod test_local_data {
             .add_registry(Registry::new("SubRPC Gist", "https://gist.githubusercontent.com/chevdor/a8b381911c28f6de02dde62ed1a17dec/raw/6992b0a2924f80f691e4844c1731564f0e2a62ec/data.json"))
             .refresh()
             .save().expect("Saving works");
-		println!("{:#?}", data);
+		println!("{data:#?}");
 	}
 
 	#[test]
@@ -188,6 +188,6 @@ mod test_local_data {
             .refresh()
             .save().expect("Saving works");
 		assert_eq!(2, data.registries.len());
-		println!("{:#?}", data);
+		println!("{data:#?}");
 	}
 }

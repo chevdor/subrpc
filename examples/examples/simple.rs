@@ -28,7 +28,7 @@ fn main() {
 	db.print_summary();
 
 	// Search for endpoins for the chain we passed as arg
-	let endpoints = db.get_endpoints(Some(&chain));
+	let endpoints = db.get_endpoints(Some(chain));
 
 	// Show result to the user
 	if endpoints.is_empty() {
