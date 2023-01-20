@@ -1,0 +1,21 @@
+{
+    "name": "OnFinality",
+    "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/onfinality.json",
+    "labels": [
+        "OnFinality"
+    ],
+    "last_updated": "2023-01-20Z11:14:00T",
+    "rpc_endpoints": {
+        "Polkadot": [
+            {
+                "name": "OnFinality",
+                "labels": [
+                    "Polkadot",
+                    "dot"
+                ],
+                "url": "wss://polkadot.api.onfinality.io:443/public-ws"
+            }
+        ]
+    },
+    "enabled": true
+}

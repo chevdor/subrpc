@@ -1,0 +1,116 @@
+{
+    "name": "Parity",
+    "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/parity.json",
+    "labels": [
+        "Parity",
+        "Polkadot"
+    ],
+    "last_updated": "2023-01-20Z11:14:00T",
+    "rpc_endpoints": {
+        "Polkadot": [
+            {
+                "name": "Parity",
+                "labels": [
+                    "Polkadot",
+                    "dot"
+                ],
+                "url": "wss://rpc.polkadot.io:443"
+            }
+        ],
+        "Kusama": [
+            {
+                "name": "Parity",
+                "labels": [
+                    "Kusama",
+                    "ksm"
+                ],
+                "url": "wss://kusama-rpc.polkadot.io:443"
+            }
+        ],
+        "Westend": [
+            {
+                "name": "Parity",
+                "labels": [
+                    "Westend",
+                    "wnd"
+                ],
+                "url": "wss://westend-rpc.polkadot.io:443"
+            }
+        ],
+        "Statemine": [
+            {
+                "name": "Parity",
+                "labels": [
+                    "Statemine"
+                ],
+                "url": "wss://statemine-rpc.polkadot.io:443"
+            }
+        ],
+        "Statemint": [
+            {
+                "name": "Parity",
+                "labels": [
+                    "Statemint"
+                ],
+                "url": "wss://statemint-rpc.polkadot.io:443"
+            }
+        ],
+        "PolkadotCollectives": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://polkadot-collectives-rpc.polkadot.io:443"
+            }
+        ],
+        "Rococo": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://rococo-rpc.polkadot.i:443"
+            }
+        ],
+        "Rockmine": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://rococo-rockmine-rpc.polkadot.io:443"
+            }
+        ],
+        "RococoContracts": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://rococo-contracts-rpc.polkadot.io:443"
+            }
+        ],
+        "Bridgehub": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://rococo-bridge-hub-rpc.polkadot.io:443"
+            }
+        ],
+        "Westmint": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://westmint-rpc.polkadot.io:443"
+            }
+        ],
+        "WestendCollectives": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://westend-collectives-rpc.polkadot.io:443"
+            }
+        ],
+        "WestendBridgehub": [
+            {
+                "name": "Parity",
+                "labels": [],
+                "url": "wss://westend-bridge-hub-rpc.polkadot.io:443"
+            }
+        ]
+    },
+    "enabled": true
+}

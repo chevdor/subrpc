@@ -1,0 +1,21 @@
+{
+    "name": "OnFinality",
+    "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/dwellir.json",
+    "labels": [
+        "OnFinality"
+    ],
+    "last_updated": "2023-01-20Z11:14:00T",
+    "rpc_endpoints": {
+        "Polkadot": [
+            {
+                "name": "OnFinality",
+                "labels": [
+                    "Polkadot",
+                    "dot"
+                ],
+                "url": "wss://polkadot-rpc.dwellir.com:443"
+            }
+        ]
+    },
+    "enabled": true
+}
