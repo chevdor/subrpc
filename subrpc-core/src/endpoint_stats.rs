@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[allow(clippy::derive_hash_xor_eq)]
+#[allow(clippy::derived_hash_with_manual_eq)]
 /// Simple stats to help picking the best endpoint
 #[derive(Debug, Default, Deserialize, Serialize, Clone)]
 pub struct EndpointStats {
