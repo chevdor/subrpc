@@ -37,6 +37,10 @@ You need to have [fzf](https://github.com/junegunn/fzf) installed and `subrpc` v
 
 Call the function invoking simply `subopen`. Type the name of a chain, it can be approximate, for instance `river`, then press enter.
 
+Click the image below or click [here](https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W) to see this tip in action:
+
+![7R4qTXsZmnF5kuH6sC2jveY8W](https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W.png)
+
 ## Registries
 
 Registries are mainly a list of RPC endpoints, stored into a json file and available via a web server (public or not).
