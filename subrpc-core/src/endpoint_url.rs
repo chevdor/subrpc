@@ -3,7 +3,7 @@ use std::fmt::Display;
 use anyhow::bail;
 use serde::{Deserialize, Serialize};
 
-#[derive(PartialEq, Hash, Eq, Debug, Deserialize, Serialize, Clone)]
+#[derive(PartialEq, PartialOrd, Ord, Hash, Eq, Debug, Deserialize, Serialize, Clone)]
 #[serde(untagged)]
 #[serde(try_from = "&str")]
 pub enum EndpointUrl {

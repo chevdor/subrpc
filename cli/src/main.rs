@@ -14,6 +14,7 @@ use webbrowser::{Browser, BrowserOptions};
 fn main() -> color_eyre::Result<()> {
 	env_logger::Builder::from_env(Env::default().default_filter_or("none")).init();
 	let opts: Opts = Opts::parse();
+	debug!("opts: {:?}", opts);
 
 	let local_data_file = &LocalData::get_default_file();
 	debug!("Using local data from: {}", local_data_file.display());
@@ -36,7 +37,35 @@ fn main() -> color_eyre::Result<()> {
 				RegistrySubCommand::Show(reg_opts) => {
 					debug!("registry/show");
 					debug!("reg_opts: {:?}", reg_opts);
-					db.print_summary();
+
+					if opts.json {
+						let serialized = serde_json::to_string_pretty(&db).unwrap();
+						println!("{serialized}");
+					} else 				{
+						db.print_summary();
+					}
+				}
+
+				RegistrySubCommand::Chains(reg_opts) => {
+					debug!("registry/chains");
+					debug!("reg_opts: {:?}", reg_opts);
+
+					let mut chains= db.registries.values().map(|reg| {
+						reg.rpc_endpoints.keys().cloned().collect::<Vec<String>>()
+					}).fold(Vec::new(),| mut acc, x | {
+						acc.extend(x);
+						acc
+					});
+					chains.sort();
+					chains.dedup();
+					if opts.json {
+						let serialized = serde_json::to_string_pretty(&chains).unwrap();
+						println!("{serialized}");
+					} else 				{
+						chains.iter().for_each(|chain| {
+							println!("{chain}");
+						})
+					}
 				}
 
 				RegistrySubCommand::Add(reg_opts) => {
@@ -62,6 +91,7 @@ fn main() -> color_eyre::Result<()> {
 						Err(e) => println!("Error adding your registry from {}: {e:?}", &reg_opts.url),
 					}
 				}
+
 				RegistrySubCommand::Update(cmd_opts) => {
 					debug!("Running Update command");
 					debug!("cmd_opts: {:?}", cmd_opts);
@@ -131,10 +161,19 @@ fn main() -> color_eyre::Result<()> {
 				EndpointsSubCommand::List(ep_opts) => {
 					debug!("endpoints/list");
 					debug!("ep_opts: {:?}", ep_opts);
-					let endpoints = db.get_endpoints(None);
-					endpoints.iter().for_each(|e| {
-						println!("{}", e.url);
-					})
+					let mut endpoint_url_vec: Vec<EndpointUrl> =
+						db.get_endpoints(None).iter().cloned().map(|ep| ep.url).collect();
+					endpoint_url_vec.sort();
+					endpoint_url_vec.dedup();
+					
+					if opts.json {
+						let serialized = serde_json::to_string_pretty(&endpoint_url_vec).unwrap();
+						println!("{serialized}");
+					} else {
+						endpoint_url_vec.iter().for_each(|e| {
+							println!("{e}");
+						})
+					}
 				}
 				EndpointsSubCommand::Ping(ep_opts) => {
 					debug!("endpoints/ping");

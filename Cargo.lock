@@ -67,9 +67,9 @@ dependencies = [
 
 [[package]]
 name = "async-trait"
-version = "0.1.62"
+version = "0.1.63"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "689894c2db1ea643a50834b999abf1c110887402542955ff5451dab8f861f9ed"
+checksum = "eff18d764974428cf3a9328e23fc5c986f5fbed46e6cd4cdf42544df5d297ec1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -190,9 +190,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "4.1.1"
+version = "4.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ec7a4128863c188deefe750ac1d1dfe66c236909f845af04beed823638dc1b2"
+checksum = "f13b9c79b5d1dd500d20ef541215a6423c75829ef43117e1b4d17fd8af0b5d76"
 dependencies = [
  "bitflags",
  "clap_derive",
@@ -307,9 +307,9 @@ checksum = "b365fabc795046672053e29c954733ec3b05e4be654ab130fe8f1f94d7051f35"
 
 [[package]]
 name = "cxx"
-version = "1.0.87"
+version = "1.0.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b61a7545f753a88bcbe0a70de1fcc0221e10bfc752f576754fa91e663db1622e"
+checksum = "322296e2f2e5af4270b54df9e85a02ff037e271af20ba3e7fe1575515dc840b8"
 dependencies = [
  "cc",
  "cxxbridge-flags",
@@ -319,9 +319,9 @@ dependencies = [
 
 [[package]]
 name = "cxx-build"
-version = "1.0.87"
+version = "1.0.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f464457d494b5ed6905c63b0c4704842aba319084a0a3561cdc1359536b53200"
+checksum = "017a1385b05d631e7875b1f151c9f012d37b53491e2a87f65bff5c262b2111d8"
 dependencies = [
  "cc",
  "codespan-reporting",
@@ -334,15 +334,15 @@ dependencies = [
 
 [[package]]
 name = "cxxbridge-flags"
-version = "1.0.87"
+version = "1.0.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43c7119ce3a3701ed81aca8410b9acf6fc399d2629d057b87e2efa4e63a3aaea"
+checksum = "c26bbb078acf09bc1ecda02d4223f03bdd28bd4874edcb0379138efc499ce971"
 
 [[package]]
 name = "cxxbridge-macro"
-version = "1.0.87"
+version = "1.0.88"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "65e07508b90551e610910fa648a1878991d367064997a596135b86df30daf07e"
+checksum = "357f40d1f06a24b60ae1fe122542c1fb05d28d32acb2aed064e84bc2ad1e252e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -392,9 +392,9 @@ checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
 
 [[package]]
 name = "either"
-version = "1.8.0"
+version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
+checksum = "7fcaabb2fef8c910e7f4c7ce9f67a1283a1715879a7c230ca9d6d1ae31f16d91"
 
 [[package]]
 name = "encoding_rs"
@@ -607,15 +607,15 @@ dependencies = [
 
 [[package]]
 name = "gimli"
-version = "0.27.0"
+version = "0.27.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dec7af912d60cdbd3677c1af9352ebae6fb8394d165568a2234df0fa00f87793"
+checksum = "221996f774192f0f718773def8201c4ae31f02616a54ccfc2d358bb0e5cefdec"
 
 [[package]]
 name = "gloo-net"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9050ff8617e950288d7bf7f300707639fdeda5ca0d0ecf380cff448cfd52f4a6"
+checksum = "9902a044653b26b99f7e3693a42f171312d9be8b26b5697bd1e43ad1f8a35e10"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -633,9 +633,9 @@ dependencies = [
 
 [[package]]
 name = "gloo-timers"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "98c4a8d6391675c6b2ee1a6c8d06e8e2d03605c44cec1270675985a4c2a5500b"
+checksum = "9b995a66bb87bebce9a0f4a95aed01daca4872c050bfcb21653361c03bc35e5c"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -923,7 +923,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "jsonrpsee-client-transport",
  "jsonrpsee-core",
@@ -936,7 +936,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-client-transport"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "anyhow",
  "futures-channel",
@@ -960,7 +960,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-core"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "anyhow",
  "async-lock",
@@ -983,7 +983,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-http-client"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "async-trait",
  "hyper",
@@ -1001,7 +1001,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-types"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "anyhow",
  "beef",
@@ -1014,7 +1014,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-wasm-client"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "jsonrpsee-client-transport",
  "jsonrpsee-core",
@@ -1024,7 +1024,7 @@ dependencies = [
 [[package]]
 name = "jsonrpsee-ws-client"
 version = "0.16.2"
-source = "git+https://github.com/paritytech/jsonrpsee#ed9a3ee9953970b4bf0eb7474d58d6d79d0effed"
+source = "git+https://github.com/paritytech/jsonrpsee#ad050afdc4fce236dd8c935719e53a46c5eb9df3"
 dependencies = [
  "http",
  "jsonrpsee-client-transport",
@@ -1174,9 +1174,9 @@ dependencies = [
 
 [[package]]
 name = "object"
-version = "0.30.2"
+version = "0.30.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b8c786513eb403643f2a88c244c2aaa270ef2153f55094587d0c48a3cf22a83"
+checksum = "ea86265d3d3dcb6a27fc51bd29a4bf387fae9d2986b823079d4986af253eb439"
 dependencies = [
  "memchr",
 ]
@@ -1619,9 +1619,9 @@ dependencies = [
 
 [[package]]
 name = "security-framework"
-version = "2.8.0"
+version = "2.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "645926f31b250a2dca3c232496c2d898d91036e45ca0e97e0e2390c54e11be36"
+checksum = "7c4437699b6d34972de58652c68b98cb5b53a4199ab126db8e20ec8ded29a721"
 dependencies = [
  "bitflags",
  "core-foundation",
@@ -1766,6 +1766,8 @@ dependencies = [
  "color-eyre",
  "env_logger",
  "log",
+ "serde",
+ "serde_json",
  "subrpc-core",
  "webbrowser",
 ]
@@ -2026,9 +2028,9 @@ dependencies = [
 
 [[package]]
 name = "unicode-bidi"
-version = "0.3.9"
+version = "0.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0046be40136ef78dc325e0edefccf84ccddacd0afcc1ca54103fa3c61bbdab1d"
+checksum = "d54675592c1dbefd78cbd98db9bacd89886e1ca50692a0692baefffdeb92dd58"
 
 [[package]]
 name = "unicode-ident"
@@ -2206,9 +2208,9 @@ dependencies = [
 
 [[package]]
 name = "webbrowser"
-version = "0.8.4"
+version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e74f5ff7786c4c21f61ba8e30ea29c9745f06fca0a4a02d083b3c662583399e8"
+checksum = "769f1a8831de12cad7bd6f9693b15b1432d93a151557810f617f626af823acae"
 dependencies = [
  "core-foundation",
  "dirs",
@@ -2219,7 +2221,6 @@ dependencies = [
  "raw-window-handle",
  "url",
  "web-sys",
- "windows",
 ]
 
 [[package]]
@@ -2271,21 +2272,6 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
-
-[[package]]
-name = "windows"
-version = "0.43.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04662ed0e3e5630dfa9b26e4cb823b817f1a9addda855d973a9458c236556244"
-dependencies = [
- "windows_aarch64_gnullvm",
- "windows_aarch64_msvc",
- "windows_i686_gnu",
- "windows_i686_msvc",
- "windows_x86_64_gnu",
- "windows_x86_64_gnullvm",
- "windows_x86_64_msvc",
-]
 
 [[package]]
 name = "windows-sys"

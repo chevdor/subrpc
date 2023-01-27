@@ -10,6 +10,9 @@ pub enum RegistrySubCommand {
 	Show(RegistryShowOpts),
 
 	#[clap(version = crate_version!(), author = crate_authors!())]
+	Chains(RegistryChainsOpts),
+
+	#[clap(version = crate_version!(), author = crate_authors!())]
 	Add(RegistryAddOpts),
 	// #[clap(version = crate_version!(), author = crate_authors!())]
 	// Enable(RegistryEnableOpts),
@@ -58,3 +61,7 @@ pub struct RegistryEnableOpts {
 	#[clap(index = 1)]
 	pub state: bool,
 }
+
+/// Enable or disable a registry
+#[derive(Debug, Parser)]
+pub struct RegistryChainsOpts {}

@@ -23,6 +23,20 @@ This helps your apps no longer having to provide a flag such as `your-cli --url 
     subrpc ep ls
     subrpc ep get polkadot
 
+## Tips
+
+If you work with many chains, the following function can be added to your `.bashrc` or `.zshrc`.
+
+You need to have [fzf](https://github.com/junegunn/fzf) installed and `subrpc` v0.0.4+ installed.
+
+    function subopen() {
+        chains=$(subrpc reg chains)
+        chain=$(echo $chains | sort -r | fzf -1 --prompt="Select the chain to open in your browser > ")
+        subrpc endpoints open $chain
+    }
+
+Call the function invoking simply `subopen`. Type the name of a chain, it can be approximate, for instance `river`, then press enter.
+
 ## Registries
 
 Registries are mainly a list of RPC endpoints, stored into a json file and available via a web server (public or not).

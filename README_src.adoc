@@ -31,6 +31,8 @@ subrpc ep ls
 subrpc ep get polkadot
 ----
 
+include::doc/tips.adoc[]
+
 include::doc/registries.adoc[]
 
 == Usage

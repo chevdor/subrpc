@@ -17,6 +17,9 @@ use clap::{crate_authors, crate_version, ColorChoice, Parser, Subcommand};
 pub struct Opts {
 	#[clap(subcommand)]
 	pub subcmd: SubCommand,
+
+	#[clap(short, long, global = true)]
+	pub json: bool,
 }
 
 /// You can find all available commands below.

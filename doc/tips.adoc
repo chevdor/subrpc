@@ -1,0 +1,12 @@
+== Tips
+
+If you work with many chains, the following function can be added to your `.bashrc` or `.zshrc`.
+
+NOTE: You need to have https://github.com/junegunn/fzf[fzf] installed and `subrpc` v0.0.4+ installed.
+
+[source, bash]
+----
+include::subopen.sh[lines=2..-1]
+----
+
+Call the function invoking simply `subopen`. Type the name of a chain, it can be approximate, for instance `river`, then press enter.
