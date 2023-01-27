@@ -165,7 +165,7 @@ fn main() -> color_eyre::Result<()> {
 						db.get_endpoints(None).iter().cloned().map(|ep| ep.url).collect();
 					endpoint_url_vec.sort();
 					endpoint_url_vec.dedup();
-					
+
 					if opts.json {
 						let serialized = serde_json::to_string_pretty(&endpoint_url_vec).unwrap();
 						println!("{serialized}");

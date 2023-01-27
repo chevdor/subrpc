@@ -1759,7 +1759,7 @@ checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
 
 [[package]]
 name = "subrpc"
-version = "0.0.3"
+version = "0.0.4"
 dependencies = [
  "assert_cmd",
  "clap",
@@ -1774,7 +1774,7 @@ dependencies = [
 
 [[package]]
 name = "subrpc-core"
-version = "0.0.3"
+version = "0.0.4"
 dependencies = [
  "anyhow",
  "chrono",

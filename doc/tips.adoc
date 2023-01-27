@@ -10,3 +10,7 @@ include::subopen.sh[lines=2..-1]
 ----
 
 Call the function invoking simply `subopen`. Type the name of a chain, it can be approximate, for instance `river`, then press enter.
+
+++++
+<a href="https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W" target="_blank"><img src="https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W.svg" /></a>
+++++
