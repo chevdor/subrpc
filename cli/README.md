@@ -29,10 +29,19 @@ If you work with many chains, the following function can be added to your `.bash
 
 You need to have [fzf](https://github.com/junegunn/fzf) installed and `subrpc` v0.0.4+ installed.
 
-    function subopen() {
+    # A function to interactively open a chain in your Browser
+    # Simply call `sub` or `sub <pattern>`
+    function sub() {
         chains=$(subrpc reg chains)
-        chain=$(echo $chains | sort -r | fzf -1 --prompt="Select the chain to open in your browser > ")
-        subrpc endpoints open $chain
+
+        if [ ! -z "$1" ]; then
+            query="$1"
+            echo "Searching for chains matching: $query"
+            chain=$(echo "$chains" | sort -r | fzf -1 -q "$query" --prompt="Select the chain to open in your browser > ")
+        else
+            chain=$(echo "$chains" | sort -r | fzf -1 --prompt="Select the chain to open in your browser > ")
+        fi
+        subrpc endpoints open "$chain"
     }
 
 Call the function invoking simply `subopen`. Type the name of a chain, it can be approximate, for instance `river`, then press enter.
