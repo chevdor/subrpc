@@ -37,6 +37,9 @@ pub struct EndpointsGetOpts {
 	/// Name of the chain. Case insensitive.
 	#[clap(index = 1)]
 	pub chain: String,
+
+	#[clap(long, short)]
+	pub max: Option<usize>,
 }
 
 /// Pick an endpoint and open it using PolkadotJS

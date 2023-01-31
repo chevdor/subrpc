@@ -152,9 +152,16 @@ fn main() -> color_eyre::Result<()> {
 					debug!("ep_opts: {:?}", ep_opts);
 					let endpoints = db.get_endpoints(Some(&ep_opts.chain));
 					// let sorted_vec: Vec<_> = endpoints.iter().collect::<Vec<_>>().sort();
-					endpoints.iter().for_each(|e| {
-						// println!("- {:<20}: {}", e.name, e.url);
-						println!("{}", e.url);
+
+					endpoints.iter().enumerate().for_each(|(i, e)| {
+						if let Some(max) = ep_opts.max {
+							if i < max {
+								println!("{}", e.url);
+							}
+						} else {
+							// println!("- {:<20}: {}", e.name, e.url);
+							println!("{}", e.url);
+						}
 					})
 				}
 
