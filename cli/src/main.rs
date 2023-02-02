@@ -202,7 +202,7 @@ fn main() -> color_eyre::Result<()> {
 					let endpoints = db.get_endpoints(Some(&ep_opts.chain));
 					match endpoints.iter().next() {
 						Some(endpoint) => {
-							let url = format!("https://polkadot.js.org/apps/?rpc={}", endpoint.url);
+							let url = ep_opts.browser_url.replace("{}", &endpoint.url.to_string());
 
 							log::debug!("Opening '{}' via {}", ep_opts.chain, url);
 							let mut browser_options = BrowserOptions::new();

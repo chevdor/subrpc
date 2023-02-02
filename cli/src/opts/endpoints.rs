@@ -48,4 +48,9 @@ pub struct EndpointsOpenOpts {
 	/// Name of the chain. Case insensitive.
 	#[clap(index = 1)]
 	pub chain: String,
+
+	/// This optional argument allows customizing the url used in your browser to open the selected endpoint.{n}
+	/// At runtime, the "{}" marker will be substituted by the endpoint url.{n}
+	#[clap(long, short, env = "SUBRPC_BROWSER_URL", default_value = "https://polkadot.js.org/apps/?rpc={}")]
+	pub browser_url: String,
 }
