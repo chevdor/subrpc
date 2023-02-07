@@ -168,22 +168,24 @@ impl Registry {
 			(
 				"Polkadot".to_string(),
 				vec![
-					Endpoint::new("Parity", "wss://rpc.polkadot.io:443", vec!["Parity".to_string()]),
+					Endpoint::new("Parity", "wss://rpc.polkadot.io:443", vec!["Parity".to_string()], vec![]),
 					Endpoint::new(
 						"OnFinality",
 						"wss://polkadot.api.onfinality.io:443/public-ws",
 						vec!["OnFinality".to_string()],
+						vec![],
 					),
 				],
 			),
 			(
 				"Kusama".to_string(),
 				vec![
-					Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()]),
+					Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()], vec![]),
 					Endpoint::new(
 						"Parity Bad",
 						"wss://bad-rpc.polkadot.io:443",
 						vec!["Parity".to_string(), "Bad".to_string()],
+						vec![],
 					),
 				],
 			),
@@ -199,17 +201,18 @@ impl Default for Registry {
 			(
 				"Polkadot".to_string(),
 				vec![
-					Endpoint::new("Parity", "wss://rpc.polkadot.io:443", vec!["Parity".to_string()]),
+					Endpoint::new("Parity", "wss://rpc.polkadot.io:443", vec!["Parity".to_string()], vec![]),
 					Endpoint::new(
 						"OnFinality",
 						"wss://polkadot.api.onfinality.io:443/public-ws",
 						vec!["OnFinality".to_string()],
+						vec![],
 					),
 				],
 			),
 			(
 				"Kusama".to_string(),
-				vec![Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()])],
+				vec![Endpoint::new("Parity", "wss://kusama-rpc.polkadot.io:443", vec!["Parity".to_string()], vec![])],
 			),
 		]);
 

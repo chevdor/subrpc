@@ -11,6 +11,10 @@ pub struct Endpoint {
 	#[serde(default = "empty_string_array")]
 	pub labels: Vec<String>,
 
+	/// Optional aliases
+	#[serde(default = "empty_string_array")]
+	pub aliases: Vec<String>,
+
 	/// Endpoint URL
 	pub url: EndpointUrl,
 
@@ -27,11 +31,12 @@ impl PartialEq for Endpoint {
 impl Eq for Endpoint {}
 
 impl Endpoint {
-	pub fn new(name: &str, url: &str, labels: Vec<String>) -> Self {
+	pub fn new(name: &str, url: &str, labels: Vec<String>, aliases: Vec<String>) -> Self {
 		Self {
 			name: name.to_string(),
 			url: EndpointUrl::try_from(url).unwrap(),
 			labels,
+			aliases,
 			stats: EndpointStats::default(),
 		}
 	}
