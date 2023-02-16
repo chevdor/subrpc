@@ -7,6 +7,7 @@ use clap::{crate_authors, crate_name, crate_version};
 use env_logger::Env;
 use log::*;
 use opts::*;
+use subrpc_core::Endpoint;
 use subrpc_core::*;
 use webbrowser::{Browser, BrowserOptions};
 
@@ -168,17 +169,69 @@ fn main() -> color_eyre::Result<()> {
 				EndpointsSubCommand::List(ep_opts) => {
 					debug!("endpoints/list");
 					debug!("ep_opts: {:?}", ep_opts);
-					let mut endpoint_url_vec: Vec<EndpointUrl> =
-						db.get_endpoints(None).iter().cloned().map(|ep| ep.url).collect();
-					endpoint_url_vec.sort();
-					endpoint_url_vec.dedup();
+
+					let mut includes = cmd_opts.include;
+					let mut excludes = cmd_opts.exclude;
+
+					includes.dedup();
+					excludes.dedup();
+
+					for include in includes.iter_mut() {
+						*include = include.to_ascii_lowercase();
+					}
+
+					for exclude in excludes.iter_mut() {
+						*exclude = exclude.to_ascii_lowercase();
+					}
+
+					let all_endpoints = db.get_endpoints(None);
+					debug!("Found {} endpoints before filtering", all_endpoints.len());
+
+					let endpoints_after_include: Vec<Endpoint> = all_endpoints
+						.into_iter()
+						.filter(|e| {
+							// println!("labels = {:?}", e.labels);
+							let res = if includes.is_empty() {
+								true
+							} else {
+								e.labels
+									.iter()
+									.map(|label| includes.contains(&label.to_ascii_lowercase()))
+									.fold(false, |acc, item| acc || item)
+							};
+
+							// println!("include {:?} => {} {}", res, e.name, e.url);
+							res
+						})
+						.collect();
+					debug!("Found {} endpoints after including", endpoints_after_include.len());
+
+					let endpoint_after_exclude: Vec<Endpoint> = endpoints_after_include
+						.into_iter()
+						.filter(|e| {
+							// TODO: Dedup labels
+							let res = if excludes.is_empty() {
+								true
+							} else {
+								!e.labels
+									.iter()
+									.map(|label| excludes.contains(&label.to_ascii_lowercase()))
+									.fold(false, |acc, item| acc || item)
+							};
+							// println!("exclude {} => {:?}", e.name, res);
+							res
+						})
+						.collect();
+					debug!("Found {} endpoints after excluding", endpoint_after_exclude.len());
+					let endpoint_filtered = endpoint_after_exclude;
+					// TODO: remove dups
 
 					if opts.json {
-						let serialized = serde_json::to_string_pretty(&endpoint_url_vec).unwrap();
+						let serialized = serde_json::to_string_pretty(&endpoint_filtered).unwrap();
 						println!("{serialized}");
 					} else {
-						endpoint_url_vec.iter().for_each(|e| {
-							println!("{e}");
+						endpoint_filtered.iter().for_each(|e| {
+							println!("{}", e.url);
 						})
 					}
 				}

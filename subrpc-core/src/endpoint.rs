@@ -1,6 +1,7 @@
 use crate::{empty_string_array, EndpointStats, EndpointUrl};
 use serde::{Deserialize, Serialize};
 
+/// A Substrate RPC Endpoint
 #[allow(clippy::derived_hash_with_manual_eq)]
 #[derive(Debug, Hash, Deserialize, Serialize, Clone)]
 pub struct Endpoint {

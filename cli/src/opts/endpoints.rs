@@ -19,6 +19,14 @@ pub enum EndpointsSubCommand {
 /// Endpoints
 #[derive(Debug, Parser)]
 pub struct EndpointsOpts {
+	/// Include only the following tag(s)
+	#[clap(long, short, global = true)]
+	pub include: Vec<String>,
+
+	/// Exclude the following tag(s)
+	#[clap(long, short, global = true)]
+	pub exclude: Vec<String>,
+
 	#[clap(subcommand)]
 	pub endpoints_subcmd: EndpointsSubCommand,
 }
