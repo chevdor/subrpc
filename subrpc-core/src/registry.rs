@@ -1,17 +1,18 @@
-use crate::{default_true, empty_string_array, ChainName, RegistryUrl};
-use crate::{endpoint::Endpoint, EndpointUrl};
+use crate::{
+	default_true, empty_string_array, endpoint::Endpoint, filter::Filter, ChainName, EndpointUrl, Label, RegistryUrl,
+};
 use anyhow::Result;
 use chrono::{DateTime, Local};
 use jsonrpsee::{core::client::ClientT, http_client::HttpClientBuilder, rpc_params, ws_client::WsClientBuilder};
 use log::*;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
-use std::fmt::Display;
-use std::time::Instant;
 use std::{
+	collections::{HashMap, HashSet},
+	fmt::Display,
 	fs::File,
 	io::{Read, Write},
 	path::PathBuf,
+	time::Instant,
 };
 use tokio::runtime::Runtime;
 
@@ -29,7 +30,7 @@ pub struct Registry {
 
 	/// Optional labels
 	#[serde(default = "empty_string_array")]
-	pub labels: Vec<String>,
+	pub labels: Vec<Label>,
 
 	/// DateTime of the last update of the data
 	pub last_update: Option<DateTime<Local>>,
@@ -84,7 +85,68 @@ impl Registry {
 			log::warn!("No URL, skipping...");
 		}
 
+		// We attach the global registry labels to each endpoint
+		self.attach_registry_labels();
+
+		println!("self = {:#?}", self);
+
 		Ok(())
+	}
+
+	/// Return the list of known chains
+	pub fn get_chains(&self) -> HashSet<ChainName> {
+		self.rpc_endpoints.keys().cloned().collect()
+	}
+
+	fn attach_registry_labels(&mut self) {
+		self.rpc_endpoints
+			.iter_mut()
+			.for_each(|(_name, endpoints)| endpoints.iter_mut().for_each(|ep| ep.append_labels(self.labels.clone())));
+	}
+
+	/// Return a HashSet of Endpoints after appending the global registy labels and
+	/// applying all the optionalfilters
+	pub fn get_endpoints_filtered(&self, filters: Option<&Filter>) -> HashSet<Endpoint> {
+		let mut endpoint_vec: HashSet<Endpoint> = HashSet::new();
+
+		self.rpc_endpoints
+			.iter()
+			// .map(|(name, endpoints)| endpoints.iter_mut().map(|ep| ep.append_labels(self.labels)))
+			// First we filter the chains out if the chain filter was defined
+			.filter(|(chaine_name, _endpoints)| {
+				if let Some(filter) = filters {
+					let chain_filter = filter.chain.clone();
+
+					if let Some(chain) = chain_filter {
+						return chaine_name.as_str().to_ascii_lowercase() == chain.to_ascii_lowercase();
+					} else {
+						return true;
+					}
+				} else {
+					true
+				}
+			})
+			.for_each(|(_, e)| {
+				let ee = e.clone();
+
+				if let Some(filter) = filters {
+					let alias = filter.alias.clone();
+
+					let to_add = ee
+						.iter()
+						.filter(|ep| {
+							if let Some(alias_filter) = alias.clone() {
+								ep.aliases.contains(&alias_filter.to_ascii_lowercase())
+							} else {
+								true
+							}
+						})
+						.cloned();
+					endpoint_vec.extend(to_add);
+				}
+			});
+
+		endpoint_vec
 	}
 
 	/// Ping all endpoints and refresh the stats
@@ -193,6 +255,19 @@ impl Registry {
 
 		Self { rpc_endpoints, ..Default::default() }
 	}
+
+	#[cfg(test)]
+	pub fn add_endpoint(&mut self, chain: &str, endpoint: Endpoint) {
+		let endpoints_vec = self.rpc_endpoints.get_mut(chain);
+		let mut endpoint = endpoint.clone();
+		endpoint.append_labels(self.labels.clone());
+
+		if let Some(ep_vec) = endpoints_vec {
+			ep_vec.push(endpoint);
+		} else {
+			self.rpc_endpoints.insert(chain.into(), vec![endpoint]);
+		}
+	}
 }
 
 impl Default for Registry {
@@ -252,9 +327,8 @@ impl Display for Registry {
 
 #[cfg(test)]
 mod test_super {
-	use std::{env, path::Path};
-
 	use super::*;
+	use std::{env, path::Path};
 
 	#[test]
 	fn test_default() {
@@ -316,5 +390,107 @@ mod test_super {
 		let reg = Registry::load_from_url(test_url).unwrap();
 		println!("{reg:#?}");
 		assert_eq!("Polkadot Network Directory", reg.name);
+	}
+}
+
+#[cfg(test)]
+mod test_local {
+	use super::*;
+
+	macro_rules! vec_of_strings {
+		($($x:expr),*) => (vec![$($x.to_string()),*]);
+	}
+
+	/// Generate some reference test data
+	/// - reg (gloab1, glob2)
+	///   - chain 1
+	/// 	- ep11 = one1 (foo, bar)
+	/// 	- ep12 = one2 (foo, baz)
+	///   - chain 2
+	/// 	- ep21 = two1 (foo, bar)
+	/// 	- ep22 = two2 (foo, baz)
+	fn test_data() -> Registry {
+		let mut reg = Registry::new("foo", "http://foo.bar");
+		reg.labels.append(&mut vec_of_strings!["glob1", "glob2"]);
+
+		reg.add_endpoint(
+			"chain1",
+			Endpoint::new("ep11", "http://ep11.url", vec_of_strings!["foo", "bar"], vec_of_strings!["one1"]),
+		);
+
+		reg.add_endpoint(
+			"chain1",
+			Endpoint::new("ep21", "http://ep21.url", vec_of_strings!["foo", "baz"], vec_of_strings!["one2"]),
+		);
+
+		reg.add_endpoint(
+			"chain2",
+			Endpoint::new("ep21", "http://ep21.url", vec_of_strings!["foo", "bar"], vec_of_strings!["two1"]),
+		);
+
+		reg.add_endpoint(
+			"chain2",
+			Endpoint::new("ep22", "http://ep22.url", vec_of_strings!["foo", "baz"], vec_of_strings!["two2"]),
+		);
+
+		println!("{reg:#?}");
+		reg
+	}
+
+	#[test]
+	fn test_get_chains() {
+		let reg = test_data();
+
+		let chains = reg.get_chains();
+		println!("chains = {:?}", chains);
+		assert_eq!(2, chains.len());
+	}
+
+	#[test]
+	fn test_filter_chain_only() {
+		let reg = test_data();
+
+		// let filter = Filter::new()
+		// 	.with_chain("Chain1")
+		// 	.with_excludes(vec!["NO1".to_string(), "NO2".to_string()])
+		// 	.with_includes(vec!["YES1".to_string(), "YES2".to_string()])
+		// 	.with_ssl(true)
+		// 	.with_endpoint_type(EndpointType::Http)
+		// 	;
+
+		let hits = reg.get_endpoints_filtered(Some(&Filter::new().with_chain("Chain1")));
+		assert_eq!(2, hits.len())
+	}
+
+	#[test]
+	fn test_filter_alias() {
+		let reg = test_data();
+
+		let hits = reg.get_endpoints_filtered(Some(&Filter::new().with_alias("one1")));
+		// println!("hits = {:#?}", hits);
+		assert_eq!(1, hits.len())
+	}
+
+	#[test]
+	fn test_filter_glob1() {
+		let reg = test_data();
+
+		assert_eq!(
+			2,
+			reg.get_endpoints_filtered(Some(
+				&Filter::new().with_chain("Chain1").with_includes(vec_of_strings!["glob1"])
+			))
+			.len()
+		);
+
+		assert_eq!(4, reg.get_endpoints_filtered(Some(&Filter::new().with_includes(vec_of_strings!["glob1"]))).len());
+	}
+
+	#[test]
+	fn test_filter_exclude_2() {
+		let reg = test_data();
+
+		assert_eq!(2, reg.get_endpoints_filtered(Some(&Filter::new().with_excludes(vec_of_strings!["bar"]))).len());
+		assert_eq!(0, reg.get_endpoints_filtered(Some(&Filter::new().with_excludes(vec_of_strings!["foo"]))).len());
 	}
 }

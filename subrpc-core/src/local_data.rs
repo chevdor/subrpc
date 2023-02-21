@@ -9,7 +9,7 @@ use std::{
 	path::{Path, PathBuf},
 };
 
-use crate::{endpoint::Endpoint, Registry};
+use crate::{endpoint::Endpoint, Registry, filter::Filter, ChainName};
 
 /// Local user data collected from the various regitries.
 ///
@@ -22,7 +22,7 @@ pub struct LocalData {
 	pub file: PathBuf,
 
 	/// List of the registries where the RPC endpoints are pulled from
-	pub registries: HashMap<String, Registry>,
+	pub registries: HashMap<ChainName, Registry>,
 
 	/// DateTime of the last update of the data
 	pub last_update: Option<DateTime<Local>>,
@@ -104,14 +104,17 @@ impl LocalData {
 		Ok(self)
 	}
 
-	/// Get a list of endpoints matching an optional filter. If not
+	/// Get a list of endpoints matching an optional chain filter. If not
 	/// `chain` filter is passed, all endpoints are returned.
+	#[deprecated(note = "Use get_endpoints_filtered")]
 	pub fn get_endpoints(&self, chain: Option<&str>) -> HashSet<Endpoint> {
 		let mut endpoint_vec: HashSet<Endpoint> = HashSet::new();
 		self.registries.iter().for_each(|(_, reg)| {
 			if !reg.enabled {
 				// skipping
 			} else {
+				let reg_labels = &reg.labels;
+
 				reg.rpc_endpoints
 					.iter()
 					.filter(|(c, _)| {
@@ -122,9 +125,43 @@ impl LocalData {
 						}
 					})
 					.for_each(|(_, e)| {
-						let ee = e.clone();
+						let mut ee = e.clone();
+						ee.iter_mut().for_each(|oe| {
+							oe.labels.append(&mut reg_labels.clone());
+						});
 						endpoint_vec.extend(ee.into_iter());
 					});
+			}
+		});
+		endpoint_vec
+	}
+
+	pub fn get_endpoints_filtered(&self, filters: Option<&Filter>) -> HashSet<Endpoint> {
+		let mut endpoint_vec: HashSet<Endpoint> = HashSet::new();
+		self.registries.iter().for_each(|(_, reg)| {
+			if !reg.enabled {
+				// skipping
+			} else {
+				// let reg_labels = &reg.labels;
+
+				todo!()
+				// reg.rpc_endpoints
+				// 	.iter()
+				// 	.filter(|(c, _)| {
+				// 		if let Some(filter) = filters {
+				// 			let chain = filter.chain.clone();
+				// 			c.as_str().to_ascii_lowercase() == chain.unwrap_or_default().to_ascii_lowercase()
+				// 		} else {
+				// 			true
+				// 		}
+				// 	})
+				// 	.for_each(|(_, e)| {
+				// 		let mut ee = e.clone();
+				// 		ee.iter_mut().for_each(|oe| {
+				// 			oe.labels.append(&mut reg_labels.clone());
+				// 		});
+				// 		endpoint_vec.extend(ee.into_iter());
+				// 	});
 			}
 		});
 		endpoint_vec

@@ -4,6 +4,7 @@ mod endpoint_stats;
 mod endpoint_url;
 mod local_data;
 mod registry;
+mod filter;
 
 pub use config::*;
 pub use endpoint::*;
@@ -15,6 +16,8 @@ pub use registry::*;
 
 pub type RegistryUrl = String; // FIXME
 pub type ChainName = String;
+pub type Label = String;
+pub type Alias = String;
 
 fn empty_string_array() -> Vec<String> {
 	vec![]
