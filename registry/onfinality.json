@@ -15,6 +15,76 @@
                 ],
                 "url": "wss://polkadot.api.onfinality.io:443/public-ws"
             }
+        ],
+        "Bifrost": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://bifrost-polkadot.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Centrifuge": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://centrifuge-parachain.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Clover": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://clover.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Composable Finance": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://composable.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Efinity": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://efinity.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Interlay": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://interlay.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Kilt Spiritnet": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://spiritnet.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Nodle": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://nodle-parachain.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Parallel": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://parallel.api.onfinality.io:443/public-ws"
+            }
+        ],
+        "Unique": [
+            {
+                "name": "OnFinality",
+                "labels": [],
+                "url": "wss://unique.api.onfinality.io:443/public-ws"
+            }
         ]
     },
     "enabled": true

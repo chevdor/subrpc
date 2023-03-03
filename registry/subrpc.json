@@ -31,6 +31,90 @@
                 "labels": [],
                 "url": "wss://westend-rpc.polkadot.io:443"
             }
+        ],
+        "Bitgreen": [
+            {
+                "name": "Bitgreen",
+                "labels": [],
+                "url": "wss://mainnet.bitgreen.org:443"
+            }
+        ],
+        "Crust": [
+            {
+                "name": "Crust",
+                "labels": [
+                    "ipfs"
+                ],
+                "url": "wss://crust-parachain.crustapps.net:443"
+            }
+        ],
+        "Darwinia Parachain": [
+            {
+                "name": "Darwinia",
+                "labels": [],
+                "url": "wss://parachain-rpc.darwinia.network:443"
+            }
+        ],
+        "Equilibrium": [
+            {
+                "name": "Equilibrium",
+                "labels": [],
+                "url": "wss://node.pol.equilibrium.io:443"
+            }
+        ],
+        "Frequency": [
+            {
+                "name": "Frequency 0",
+                "labels": [],
+                "url": "wss://0.rpc.frequency.xyz:443"
+            },
+            {
+                "name": "Frequency 1",
+                "labels": [],
+                "url": "wss://1.rpc.frequency.xyz:443"
+            }
+        ],
+        "Integritee": [
+            {
+                "name": "Integritee",
+                "labels": [],
+                "url": "wss://polkadot.api.integritee.network:443"
+            }
+        ],
+        "Kapex": [
+            {
+                "name": "Totem",
+                "labels": [],
+                "url": "wss://k-ui.kapex.network:443"
+            }
+        ],
+        "Kylin": [
+            {
+                "name": "Kylin",
+                "labels": [],
+                "url": "wss://polkadot.kylin-node.co.uk:443"
+            }
+        ],
+        "OriginTrail": [
+            {
+                "name": "TraceLabs",
+                "labels": [],
+                "url": "wss://parachain-rpc.origin-trail.network:443"
+            }
+        ],
+        "Pendulum": [
+            {
+                "name": "PendulumChain",
+                "labels": [],
+                "url": "wss://rpc-pendulum.prd.pendulumchain.tech:443"
+            }
+        ],
+        "Watr": [
+            {
+                "name": "Watr",
+                "labels": [],
+                "url": "wss://rpc.watr.org:443"
+            }
         ]
     },
     "enabled": true
