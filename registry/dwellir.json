@@ -1,14 +1,14 @@
 {
-    "name": "OnFinality",
+    "name": "Dwellir",
     "url": "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/dwellir.json",
     "labels": [
-        "OnFinality"
+        "Dwellir"
     ],
     "last_updated": "2023-01-20Z11:14:00T",
     "rpc_endpoints": {
         "Polkadot": [
             {
-                "name": "OnFinality",
+                "name": "Dwellir",
                 "labels": [
                     "Polkadot",
                     "dot"
@@ -18,7 +18,7 @@
         ],
         "Litentry": [
             {
-                "name": "OnFinality",
+                "name": "Dwellir",
                 "labels": [],
                 "url": "wss://litentry-rpc.dwellir.com:443"
             }
