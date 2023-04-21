@@ -51,7 +51,9 @@ Call the function invoking simply `subopen`. Type the name of a chain, it can be
 
 Click the image below or click [here](https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W) to see this tip in action:
 
-![7R4qTXsZmnF5kuH6sC2jveY8W](https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W.png)
+<figure>
+<img src="https://asciinema.org/a/7R4qTXsZmnF5kuH6sC2jveY8W.png" alt="7R4qTXsZmnF5kuH6sC2jveY8W" />
+</figure>
 
 ## Registries
 
