@@ -55,7 +55,7 @@
                 "url": "wss://statemint-rpc.polkadot.io:443"
             }
         ],
-        "PolkadotCollectives": [
+        "Polkadot Collectives": [
             {
                 "name": "Parity",
                 "labels": [],
@@ -76,14 +76,14 @@
                 "url": "wss://rococo-rockmine-rpc.polkadot.io:443"
             }
         ],
-        "RococoContracts": [
+        "Rococo Contracts": [
             {
                 "name": "Parity",
                 "labels": [],
                 "url": "wss://rococo-contracts-rpc.polkadot.io:443"
             }
         ],
-        "Bridgehub": [
+        "BridgeHub": [
             {
                 "name": "Parity",
                 "labels": [],
@@ -100,14 +100,14 @@
                 "url": "wss://westmint-rpc.polkadot.io:443"
             }
         ],
-        "WestendCollectives": [
+        "Westend Collectives": [
             {
                 "name": "Parity",
                 "labels": [],
                 "url": "wss://westend-collectives-rpc.polkadot.io:443"
             }
         ],
-        "WestendBridgehub": [
+        "Westend BridgeHub": [
             {
                 "name": "Parity",
                 "labels": [],
