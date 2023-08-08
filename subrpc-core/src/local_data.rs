@@ -123,7 +123,7 @@ impl LocalData {
 					})
 					.for_each(|(_, e)| {
 						let ee = e.clone();
-						endpoint_vec.extend(ee.into_iter());
+						endpoint_vec.extend(ee);
 					});
 			}
 		});
