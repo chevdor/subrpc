@@ -622,9 +622,9 @@ checksum = "b6c80984affa11d98d1b88b66ac8853f143217b399d3c74116778ff8fdb4ed2e"
 
 [[package]]
 name = "gloo-net"
-version = "0.3.1"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a66b4e3c7d9ed8d315fd6b97c8b1f74a7c6ecbbc2320e65ae7ed38b7068cc620"
+checksum = "8ac9e8288ae2c632fa9f8657ac70bfe38a1530f345282d7ba66a1f70b72b7dc4"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -655,9 +655,9 @@ dependencies = [
 
 [[package]]
 name = "gloo-utils"
-version = "0.1.7"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "037fcb07216cb3a30f7292bd0176b050b7b9a052ba830ef7d5d65f6dc64ba58e"
+checksum = "0b5555354113b18c547c1d3a98fbf7fb32a9ff4f6fa112ce823a21641a0ba3aa"
 dependencies = [
  "js-sys",
  "serde",
@@ -919,8 +919,8 @@ dependencies = [
 
 [[package]]
 name = "jsonrpsee"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "jsonrpsee-client-transport",
  "jsonrpsee-core",
@@ -932,8 +932,8 @@ dependencies = [
 
 [[package]]
 name = "jsonrpsee-client-transport"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "futures-channel",
  "futures-util",
@@ -948,13 +948,14 @@ dependencies = [
  "tokio-rustls",
  "tokio-util",
  "tracing",
+ "url",
  "webpki-roots",
 ]
 
 [[package]]
 name = "jsonrpsee-core"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "anyhow",
  "async-lock",
@@ -975,8 +976,8 @@ dependencies = [
 
 [[package]]
 name = "jsonrpsee-http-client"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "async-trait",
  "hyper",
@@ -989,12 +990,13 @@ dependencies = [
  "tokio",
  "tower",
  "tracing",
+ "url",
 ]
 
 [[package]]
 name = "jsonrpsee-types"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "anyhow",
  "beef",
@@ -1006,8 +1008,8 @@ dependencies = [
 
 [[package]]
 name = "jsonrpsee-wasm-client"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "jsonrpsee-client-transport",
  "jsonrpsee-core",
@@ -1016,13 +1018,14 @@ dependencies = [
 
 [[package]]
 name = "jsonrpsee-ws-client"
-version = "0.19.0"
-source = "git+https://github.com/paritytech/jsonrpsee#76fddae3462bd1792d0849813b99051aea072ff7"
+version = "0.20.0"
+source = "git+https://github.com/paritytech/jsonrpsee#ea661bdfee674b718c1deae16af404f58ff93eb8"
 dependencies = [
  "http",
  "jsonrpsee-client-transport",
  "jsonrpsee-core",
  "jsonrpsee-types",
+ "url",
 ]
 
 [[package]]
