@@ -3,7 +3,6 @@ mod endpoints;
 mod registry;
 mod system;
 
-pub use config::*;
 pub use endpoints::*;
 pub use registry::*;
 pub use system::*;

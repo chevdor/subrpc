@@ -9,7 +9,6 @@ pub use config::*;
 pub use endpoint::*;
 pub use endpoint_stats::*;
 pub use endpoint_url::EndpointUrl;
-pub use endpoint_url::*;
 pub use local_data::*;
 pub use registry::*;
 
