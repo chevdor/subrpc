@@ -41,7 +41,7 @@ fn main() -> color_eyre::Result<()> {
 					if opts.json {
 						let serialized = serde_json::to_string_pretty(&db).unwrap();
 						println!("{serialized}");
-					} else 				{
+					} else {
 						db.print_summary();
 					}
 				}
@@ -50,18 +50,20 @@ fn main() -> color_eyre::Result<()> {
 					debug!("registry/chains");
 					debug!("reg_opts: {:?}", reg_opts);
 
-					let mut chains= db.registries.values().map(|reg| {
-						reg.rpc_endpoints.keys().cloned().collect::<Vec<String>>()
-					}).fold(Vec::new(),| mut acc, x | {
-						acc.extend(x);
-						acc
-					});
+					let mut chains = db
+						.registries
+						.values()
+						.map(|reg| reg.rpc_endpoints.keys().cloned().collect::<Vec<String>>())
+						.fold(Vec::new(), |mut acc, x| {
+							acc.extend(x);
+							acc
+						});
 					chains.sort();
 					chains.dedup();
 					if opts.json {
 						let serialized = serde_json::to_string_pretty(&chains).unwrap();
 						println!("{serialized}");
-					} else 				{
+					} else {
 						chains.iter().for_each(|chain| {
 							println!("{chain}");
 						})
@@ -83,9 +85,9 @@ fn main() -> color_eyre::Result<()> {
 									println!("OK, {reg_name} has been added to your local data.");
 									local_data.print_registries();
 								}
-								Err(e) => println!(
-									"Something went wrong while adding {reg_name} to your local data: {e:?}"
-								),
+								Err(e) => {
+									println!("Something went wrong while adding {reg_name} to your local data: {e:?}")
+								}
 							}
 						}
 						Err(e) => println!("Error adding your registry from {}: {e:?}", &reg_opts.url),
@@ -110,15 +112,14 @@ fn main() -> color_eyre::Result<()> {
 							process::exit(1);
 						}
 					}
-				}
-				// RegistrySubCommand::Enable(reg_opts) => {
-				//     debug!("registry/enable");
-				//     debug!("reg_opts: {:?}", reg_opts);
-				// }
-				// RegistrySubCommand::Remove(_) => {
-				//     debug!("registry/remove");
+				} // RegistrySubCommand::Enable(reg_opts) => {
+				  //     debug!("registry/enable");
+				  //     debug!("reg_opts: {:?}", reg_opts);
+				  // }
+				  // RegistrySubCommand::Remove(_) => {
+				  //     debug!("registry/remove");
 
-				// },
+				  // },
 			}
 		}
 
