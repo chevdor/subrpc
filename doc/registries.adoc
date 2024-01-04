@@ -5,6 +5,6 @@ Registries are mainly a list of RPC endpoints, stored into a json file and avail
 
 You can find below a list of public registries:
 
-- https://paritytech.github.io/polkadot_network_directory/registry.json[Polkadot Network Directory Registry]: The https://paritytech.github.io/polkadot_network_directory[Polkadot Network Directory] project is aware of many chains and projects and provides a registry that is automatically updated and based on the data available to the directory
+- https://polkadot-cloud.github.io/polkadot_network_directory/registry.json[Polkadot Network Directory Registry]: The https://polkadot-cloud.github.io/polkadot_network_directory[Polkadot Network Directory] project is aware of many chains and projects and provides a registry that is automatically updated and based on the data available to the directory
 - https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json[SubRPC Registry]: A small basic registry to get started and show an example
 - Add your registry with https://github.com/chevdor/subrpc/pulls[Pull Request]
