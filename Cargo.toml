@@ -6,3 +6,13 @@ members = [
     "subrpc-core",
     "examples",
 ]
+
+[workspace.package]
+version = "0.0.6"
+authors = ["chevdor <chevdor@gmail.com>"]
+repository = "https://github.com/chevdor/subrpc"
+homepage = "https://github.com/chevdor/subrpc"
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+keywords = ["chevdor", "registry", "polkadot"]
