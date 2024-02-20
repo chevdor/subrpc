@@ -25,7 +25,7 @@ subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/
 subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/dwellir.json
 subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/onfinality.json
 subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/moonbeam.json
-subrpc reg add https://polkadot-cloud.github.io/polkadot_network_directory/registry.json
+subrpc reg add https://polkadot-ui.github.io/polkadot_network_directory/registry.json
 subrpc reg up
 subrpc system info
 

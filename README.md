@@ -18,7 +18,7 @@ This helps your apps no longer having to provide a flag such as `your-cli --url 
     subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/dwellir.json
     subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/onfinality.json
     subrpc reg add https://raw.githubusercontent.com/chevdor/subrpc/master/registry/moonbeam.json
-    subrpc reg add https://polkadot-cloud.github.io/polkadot_network_directory/registry.json
+    subrpc reg add https://polkadot-ui.github.io/polkadot_network_directory/registry.json
     subrpc reg up
     subrpc system info
 
@@ -61,7 +61,7 @@ Registries are mainly a list of RPC endpoints, stored into a json file and avail
 
 You can find below a list of public registries:
 
--   [Polkadot Network Directory Registry](https://polkadot-cloud.github.io/polkadot_network_directory/registry.json): The [Polkadot Network Directory](https://polkadot-cloud.github.io/polkadot_network_directory) project is aware of many chains and projects and provides a registry that is automatically updated and based on the data available to the directory
+-   [Polkadot Network Directory Registry](https://polkadot-ui.github.io/polkadot_network_directory/registry.json): The [Polkadot Network Directory](https://polkadot-ui.github.io/polkadot_network_directory) project is aware of many chains and projects and provides a registry that is automatically updated and based on the data available to the directory
 
 -   [SubRPC Registry](https://raw.githubusercontent.com/chevdor/subrpc/master/registry/subrpc.json): A small basic registry to get started and show an example
 
