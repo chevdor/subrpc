@@ -312,9 +312,9 @@ mod test_super {
 
 	#[test]
 	fn test_load_from_url() {
-		let test_url = "https://ui.github.io/polkadot_network_directory/registry.json";
+		let test_url = "https://raw.githubusercontent.com/chevdor/subrpc/master/registry/sample1.json";
 		let reg = Registry::load_from_url(test_url).unwrap();
 		println!("{reg:#?}");
-		assert_eq!("Polkadot Network Directory", reg.name);
+		assert_eq!("SubRPC Test Registry 1", reg.name);
 	}
 }
