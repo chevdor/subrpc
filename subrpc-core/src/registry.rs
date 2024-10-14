@@ -127,12 +127,12 @@ impl Registry {
 
 		let response: Result<String> = match &e.url {
 			EndpointUrl::Https(url) | EndpointUrl::Http(url) => {
-				debug!("Detected HTTP/S");
+				trace!("Detected HTTP/S");
 				let client = HttpClientBuilder::default().build(url)?;
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
 			EndpointUrl::Wss(url) | EndpointUrl::Ws(url) => {
-				debug!("Detected WS/S");
+				trace!("Detected WS/S");
 				let client = rt.block_on(WsClientBuilder::default().build(url))?;
 				rt.block_on(client.request("system_chain", rpc_params![])).map_err(anyhow::Error::msg)
 			}
@@ -159,7 +159,7 @@ impl Registry {
 	}
 
 	pub fn load_from_url(url: &str) -> Result<Self> {
-		debug!("Adding registry from {url}");
+		info!("Adding registry from {url}");
 		reqwest::blocking::get(url)?.json::<Registry>().map_err(anyhow::Error::msg)
 	}
 
