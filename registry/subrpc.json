@@ -115,6 +115,78 @@
                 "labels": [],
                 "url": "wss://rpc.watr.org:443"
             }
+        ],
+		"Moonriver": [
+            {
+                "name": "Allnodes",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://moonriver-rpc.publicnode.com"
+            },
+            {
+                "name": "Blast",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://moonriver.public.blastapi.io"
+            },
+            {
+                "name": "RadiumBlock",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://moonriver.public.curie.radiumblock.co/ws"
+            },
+            {
+                "name": "UnitedBlock",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://moonriver.unitedbloc.com"
+            }
+        ],
+		"Moonbeam": [
+            {
+                "name": "Allnodes",
+                "labels": [
+                    "mainnet",
+					"parachain"
+                ],
+                "url": "wss://moonbeam-rpc.publicnode.com"
+            },
+            {
+                "name": "Blast",
+                "labels": [
+                    "mainnet",
+					"parachain"
+                ],
+                "url": "wss://moonbeam.public.blastapi.io"
+            },
+            {
+                "name": "RadiumBlock",
+                "labels": [
+                    "mainnet",
+					"parachain"
+                ],
+                "url": "wss://moonbeam.public.curie.radiumblock.co/ws"
+            },
+            {
+                "name": "UnitedBlock",
+                "labels": [
+                    "mainnet",
+					"parachain"
+                ],
+                "url": "wss://moonbeam.unitedbloc.com"
+            }
         ]
     },
     "enabled": true

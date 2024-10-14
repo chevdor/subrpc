@@ -22,6 +22,17 @@
                 "labels": [],
                 "url": "wss://litentry-rpc.dwellir.com:443"
             }
+        ],
+		"Moonriver": [
+            {
+                "name": "Dwellir",
+                "labels": [
+                    "canary",
+                    "testnet",
+                    "parachain"
+                ],
+                "url": "wss://moonriver-rpc.dwellir.com"
+            }
         ]
     },
     "enabled": true
