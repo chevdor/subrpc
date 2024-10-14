@@ -1,6 +1,6 @@
 [package]
 name = "subrpc"
-description = "subrpc is a cli"
+description = "subrpc to manage and update remote registries for RPC endpoints"
 authors.workspace = true
 version.workspace = true
 edition.workspace = true

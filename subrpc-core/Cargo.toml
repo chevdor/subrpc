@@ -1,6 +1,6 @@
 [package]
 name = "subrpc-core"
-description = "subrpc-core is a lib"
+description = "subrpc-core is the lib for subrpc"
 authors.workspace = true
 version.workspace = true
 edition.workspace = true

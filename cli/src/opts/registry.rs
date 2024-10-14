@@ -62,6 +62,6 @@ pub struct RegistryEnableOpts {
 	pub state: bool,
 }
 
-/// Enable or disable a registry
+/// List known chains
 #[derive(Debug, Parser)]
 pub struct RegistryChainsOpts {}
