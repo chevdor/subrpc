@@ -13,15 +13,15 @@ repository.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-log = "0.4"
-env_logger = "0.11"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
+log = "0.4.25"
+env_logger = "0.11.6"
 tokio = { version = "1", features = ["rt", "rt-multi-thread"], default-features = false }
-jsonrpsee = { version = "0.24", git = "https://github.com/paritytech/jsonrpsee", features = [
+jsonrpsee = { version = "0.24.7", git = "https://github.com/paritytech/jsonrpsee", features = [
     "client",
 ] }
-anyhow = "1.0"
-dirs = "5.0"
+anyhow = "1.0.95"
+dirs = "6.0.0"
 chrono = { version = "0.4", features = ["serde", "clock"], default-features = false }
 reqwest = { version = "0.12", features = ["blocking", "json", "default-tls"], default-features = false }

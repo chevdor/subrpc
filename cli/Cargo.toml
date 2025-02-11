@@ -11,14 +11,14 @@ readme.workspace = true
 repository.workspace = true
 
 [dependencies]
-env_logger = "0.11"
-log = "0.4"
-clap = { version = "4", features = ["derive", "env", "unicode", "cargo"] }
-color-eyre = "0.6"
+env_logger = "0.11.6"
+log = "0.4.25"
+clap = { version = "4.5.28", features = ["derive", "env", "unicode", "cargo"] }
+color-eyre = "0.6.3"
 subrpc-core = { path = "../subrpc-core", version = "0"}
-webbrowser = "1.0"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+webbrowser = "1.0.3"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
 
 [dev-dependencies]
-assert_cmd = "2.0"
+assert_cmd = "2.0.16"
